@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { localeMetadata, siteUrl } from "./seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dancer Method — Experience Prototype",
-  description: "A kinetic homepage prototype for Dancer Method.",
+  metadataBase: siteUrl,
+  ...localeMetadata("es"),
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

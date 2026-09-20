@@ -8,11 +8,11 @@ web
 
 ## Users
 
-Bailarinas adultas amateur, semiprofesionales y profesionales que buscan acompañamiento para su práctica y rendimiento.
+Personas adultas que bailan de forma amateur, semiprofesional o profesional y buscan acompañamiento para su práctica y rendimiento.
 
 ## Product Purpose
 
-Dancer Method presenta la propuesta de Ro y capta Solicitudes de acompañamiento para orientar a cada bailarina hacia Essential o Pro.
+Dancer Method presenta la propuesta de Ro y capta Solicitudes de acompañamiento para orientar a cada persona hacia Essential o Pro.
 
 ## Positioning
 
@@ -20,7 +20,7 @@ Combina una membresía digital con coaching 1:1 para acompañar el entrenamiento
 
 ## Capabilities and Constraints
 
-La primera entrega es una homepage navegable con placeholders y animaciones; no procesa formularios ni pagos. La experiencia estará disponible en español e inglés. Las escenas pinned se limitan a escritorio y tienen equivalentes verticales en móvil y para `prefers-reduced-motion`.
+La primera entrega es una homepage navegable de recorrido completo con placeholders y animaciones; no procesa pagos ni persiste datos. Incluye problema, método, pilares, inclusiones, planes, proceso de tres meses, biografía de Roo, elegibilidad y contacto. El formulario de contacto abre WhatsApp con un mensaje precompuesto para que la persona lo revise y envíe. La experiencia estará disponible en español e inglés. Las escenas pinned se limitan a escritorio y tienen equivalentes verticales en móvil y para `prefers-reduced-motion`.
 
 ## Brand Commitments
 
