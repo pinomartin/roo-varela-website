@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  background: #f5f0e6;
+  background: #191115;
 }
 
 * {
@@ -14,7 +14,7 @@ html {
 
 body {
   margin: 0;
-  background: #f5f0e6;
+  background: #191115;
 }
 
 button,
