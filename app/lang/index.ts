@@ -169,6 +169,7 @@ const lang = {
     instagram: "Instagram",
     language: "EN",
     footer: "DANCER METHOD — TU CUERPO, TU DANZA, TU PROCESO",
+    developedBy: "Desarrollado por",
     backToTop: "Volver al inicio",
     message: (name: string, goal: string, interest: string) =>
       `Hola, soy ${name}.\nMi objetivo principal es: ${goal}.\nMe interesa: ${interest}.\nMe gustaría recibir más información sobre Dancer Method.`,
@@ -348,6 +349,7 @@ const lang = {
     instagram: "Instagram",
     language: "ES",
     footer: "DANCER METHOD — YOUR BODY, YOUR DANCE, YOUR PROCESS",
+    developedBy: "Developed by",
     backToTop: "Back to top",
     message: (name: string, goal: string, interest: string) =>
       `Hi, I am ${name}.\nMy main goal is: ${goal}.\nI am interested in: ${interest}.\nI would like more information about Dancer Method.`,

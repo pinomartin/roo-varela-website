@@ -286,7 +286,6 @@ export default function HomeExperience({
             includeCards.forEach((card, index) => {
               gsap.from(card, {
                 y: 72,
-                scale: 0.94,
                 rotation: index % 2 === 0 ? -3 : 3,
                 autoAlpha: 0,
                 ease: "power3.out",
@@ -300,8 +299,6 @@ export default function HomeExperience({
 
               if (index < includeCards.length - 1) {
                 gsap.to(card, {
-                  y: -18,
-                  scale: 0.92,
                   autoAlpha: 0.72,
                   ease: "none",
                   scrollTrigger: {
@@ -934,6 +931,9 @@ export default function HomeExperience({
 
       <footer className={`${styles.footer} footer-motion`}>
         <span>{text.footer}</span>
+        <a href="https://app.clickfix.work" target="_blank" rel="noreferrer">
+          {text.developedBy} ClickFix
+        </a>
         <a href="#top">{text.backToTop} ↑</a>
       </footer>
     </main>

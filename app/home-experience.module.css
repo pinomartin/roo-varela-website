@@ -1438,7 +1438,7 @@
     overflow-wrap: anywhere;
   }
   .sceneCopy h2 {
-    font-size: clamp(3rem, 17vw, 5.4rem);
+    font-size: clamp(3rem, 17vw, 3rem);
     overflow-wrap: anywhere;
   }
   .methodStage {
