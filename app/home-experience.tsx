@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  useEffect,
   useRef,
   useState,
   type MouseEvent,
@@ -35,16 +34,12 @@ export default function HomeExperience({
 }: HomeExperienceProps) {
   const root = useRef<HTMLElement>(null);
   const nameInput = useRef<HTMLInputElement>(null);
-  const [language, setLanguage] = useState<Language>(initialLanguage);
+  const language = initialLanguage;
   const [selectedInterest, setSelectedInterest] =
     useState<PlanInterest>("undecided");
   const [formStatus, setFormStatus] = useState("");
   const [whatsAppUrl, setWhatsAppUrl] = useState("");
   const text = lang[language];
-
-  useEffect(() => {
-    document.documentElement.lang = language;
-  }, [language]);
 
   useGSAP(
     () => {
@@ -485,14 +480,13 @@ export default function HomeExperience({
           <a href="#roo">{text.nav[2]}</a>
           <a href="#contact">{text.nav[3]}</a>
         </nav>
-        <button
+        <a
           className={styles.languageButton}
-          type="button"
-          onClick={() => setLanguage(language === "es" ? "en" : "es")}
+          href={language === "es" ? "/en" : "/es"}
           aria-label={`Switch language to ${text.language}`}
         >
           {text.language}
-        </button>
+        </a>
       </header>
 
       <section id="top" className={styles.hero} aria-labelledby="hero-heading">

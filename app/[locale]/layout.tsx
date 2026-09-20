@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { localeMetadata, siteUrl } from "./seo";
+import "../globals.css";
+import { locales, siteUrl, type Locale } from "../seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,15 +13,26 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+type LocaleLayoutProps = LayoutProps<"/[locale]">;
+
 export const metadata: Metadata = {
   metadataBase: siteUrl,
-  ...localeMetadata("es"),
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
+export default async function LocaleLayout({
+  children,
+  params,
+}: LocaleLayoutProps) {
+  const { locale } = await params;
+  const lang = locales.includes(locale as Locale) ? locale : "es";
+
   return (
     <html
-      lang="es"
+      lang={lang}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>

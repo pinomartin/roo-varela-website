@@ -23,6 +23,8 @@ const seo = {
   },
 } satisfies Record<Locale, { title: string; description: string; path: string; ogLocale: string }>;
 
+const ogImage = "/img/pose_rosa.png";
+
 function absoluteUrl(path = "/") {
   return new URL(path, siteUrl).toString();
 }
@@ -48,11 +50,13 @@ function localeMetadata(locale: Locale): Metadata {
       siteName: "Dancer Method",
       locale: data.ogLocale,
       type: "website",
+      images: [ogImage],
     },
     twitter: {
       card: "summary_large_image",
       title: data.title,
       description: data.description,
+      images: [ogImage],
     },
   };
 }
@@ -63,6 +67,13 @@ function serviceJsonLd(locale: Locale) {
   return {
     "@context": "https://schema.org",
     "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": `${absoluteUrl("/#website")}`,
+        name: "Dancer Method",
+        url: absoluteUrl(seo[locale].path),
+        inLanguage: locale,
+      },
       {
         "@type": "Person",
         "@id": `${absoluteUrl("/#roo")}`,
@@ -77,6 +88,7 @@ function serviceJsonLd(locale: Locale) {
         "@type": "Service",
         "@id": `${absoluteUrl(seo[locale].path)}#service`,
         name: "Dancer Method",
+        description: seo[locale].description,
         url: absoluteUrl(seo[locale].path),
         provider: { "@id": `${absoluteUrl("/#roo")}` },
         serviceType: isSpanish
@@ -87,6 +99,7 @@ function serviceJsonLd(locale: Locale) {
           {
             "@type": "Offer",
             name: "Essential",
+            url: `${absoluteUrl(seo[locale].path)}#plans`,
             price: "39",
             priceCurrency: "USD",
             availability: "https://schema.org/InStock",
@@ -94,7 +107,16 @@ function serviceJsonLd(locale: Locale) {
           {
             "@type": "Offer",
             name: "Pro",
+            url: `${absoluteUrl(seo[locale].path)}#plans`,
             price: "79",
+            priceCurrency: "USD",
+            availability: "https://schema.org/InStock",
+          },
+          {
+            "@type": "Offer",
+            name: "Pro 3-month promotion",
+            url: `${absoluteUrl(seo[locale].path)}#plans`,
+            price: "200",
             priceCurrency: "USD",
             availability: "https://schema.org/InStock",
           },
