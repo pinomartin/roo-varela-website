@@ -525,11 +525,21 @@ export default function HomeExperience({
         </div>
         <div className={styles.heroContent}>
           <h1 id="hero-heading" className={styles.heroTitle}>
-            {text.heroLines.map((line) => (
-              <span className={styles.heroLineWrap} key={line}>
-                <span className={`${styles.heroLine} hero-line`}>{line}</span>
+            <span className={styles.heroLineWrap}>
+              <span className={`${styles.heroLine} hero-line`}>
+                <span className={styles.heroAccent}>DANCER</span>
+                <span>METHOD</span>
               </span>
-            ))}
+            </span>
+            <span className={styles.heroLineWrap}>
+              <span
+                className={`${styles.heroLine} ${styles.heroSignature} hero-line`}
+              >
+                <span className={styles.heroBy}>{text.heroBy}</span>
+                <span>ROO</span>
+                <span className={styles.heroAccent}>VARELA</span>
+              </span>
+            </span>
           </h1>
           <div className={`${styles.heroFooter} hero-detail`}>
             <p>{text.intro}</p>

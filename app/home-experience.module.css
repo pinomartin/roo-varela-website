@@ -144,10 +144,12 @@
   clip-path: inset(0 0 52% 0);
 }
 .heroContent {
+  position: relative;
+  z-index: 1;
   width: 100%;
 }
 .heroTitle {
-  max-width: 18ch;
+  max-width: min(100%, 20ch);
   margin: 1rem 0 clamp(2rem, 5vw, 5rem);
   font-size: clamp(3.2rem, 5.2vw, 6rem);
   font-weight: 900;
@@ -160,8 +162,21 @@
   overflow: hidden;
 }
 .heroLine {
-  display: inline-block;
+  display: inline-flex;
+  gap: 0.18em;
   white-space: nowrap;
+}
+.heroAccent {
+  color: var(--mint);
+}
+.heroSignature {
+  align-items: baseline;
+  font-size: 0.5em;
+  letter-spacing: -0.02em;
+}
+.heroBy {
+  font-size: 0.5em;
+  letter-spacing: 0.08em;
 }
 .heroFooter {
   display: grid;
@@ -1397,6 +1412,12 @@
   .contactForm .primaryAction {
     width: 100%;
     justify-content: center;
+  }
+}
+@media (max-width: 1200px) {
+  .heroLine {
+    flex-wrap: wrap;
+    white-space: normal;
   }
 }
 @media (max-width: 640px) {

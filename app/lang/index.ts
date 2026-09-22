@@ -5,11 +5,7 @@ const lang = {
     practiceLabel: "Los pilares de Dancer Method",
     skip: "Saltar al contenido",
     announce: "ROO VARELA — PERSONAL TRAINER & PROFESSIONAL DANCER",
-    heroLines: [
-      "DANCER METHOD.",
-      "ENTRENAMIENTO PARA BAILARINES.",
-      "POR ROO VARELA.",
-    ],
+    heroBy: "POR",
     intro:
       "Entrenamiento para bailarines que une dance conditioning, fuerza, nutrición y coaching para preparar tu cuerpo sin separarlo de tu danza.",
     primary: "Conoce el método",
@@ -185,7 +181,7 @@ const lang = {
     practiceLabel: "Dancer Method pillars",
     skip: "Skip to content",
     announce: "ROO VARELA — PERSONAL TRAINER & PROFESSIONAL DANCER",
-    heroLines: ["DANCER METHOD.", "TRAINING FOR DANCERS.", "BY ROO VARELA."],
+    heroBy: "BY",
     intro:
       "Training for dancers combining dance conditioning, strength training, nutrition, and coaching so your body supports your dance.",
     primary: "Discover the method",
