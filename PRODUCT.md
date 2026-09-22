@@ -8,15 +8,15 @@ web
 
 ## Users
 
-Personas adultas que bailan de forma amateur, semiprofesional o profesional y buscan acompañamiento para su práctica y rendimiento.
+Personas adultas que bailan de forma amateur, semiprofesional o profesional y buscan entrenamiento físico, fuerza, nutrición y coaching para mejorar su práctica y rendimiento.
 
 ## Product Purpose
 
-Dancer Method presenta la propuesta de Ro y capta Solicitudes de acompañamiento para orientar a cada persona hacia Essential o Pro.
+El sitio posiciona a Roo Varela como personal trainer y bailarina profesional, presenta Dancer Method como su producto estrella y capta solicitudes para orientar a cada persona hacia Essential o Pro.
 
 ## Positioning
 
-Combina una membresía digital con coaching 1:1 para acompañar el entrenamiento y la nutrición desde una perspectiva educativa, no clínica.
+Roo Varela es la marca personal. Dancer Method es el método de entrenamiento para bailarines: dance conditioning, strength training, nutrición y coaching online desde una perspectiva educativa, no clínica.
 
 ## Capabilities and Constraints
 
