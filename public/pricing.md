@@ -1,4 +1,4 @@
-# Pricing — Dancer Method
+# Pricing — Roo Varela · Dancer Method
 
 Last updated: 2026-09-21
 
@@ -24,6 +24,7 @@ Last updated: 2026-09-21
 
 ## Notes
 
+- Roo Varela is the personal brand; Dancer Method is her flagship online training, nutrition, and coaching product for dancers.
 - Dancer Method is online training and food guidance for dancers.
 - Dancer Method is educational and performance-oriented; it is not clinical care, therapy, medical treatment, or injury prevention advice.
 - To start, contact Roo Varela through the site contact flow or Instagram.

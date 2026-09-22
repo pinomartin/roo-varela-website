@@ -1,6 +1,16 @@
-# Dancer Method
+# Roo Varela · Dancer Method
 
-Dancer Method es la oferta digital y de coaching de Ro para bailarines que buscan acondicionamiento, acompañamiento y nutrición aplicada al rendimiento.
+Roo Varela es la marca personal: personal trainer y bailarina profesional. Dancer Method es su producto estrella: entrenamiento para bailarines que combina dance conditioning, entrenamiento de fuerza, nutrición y coaching online aplicado al rendimiento.
+
+## Posicionamiento SEO
+
+**Roo Varela**:
+Marca personal y referente del método.
+_Use_: Roo Varela, personal trainer, bailarina profesional, entrenadora personal para bailarines
+
+**Dancer Method**:
+Producto estrella de Roo Varela para entrenamiento online de bailarines.
+_Use_: Dancer Method, entrenamiento para bailarines, preparación física para bailarines, dance conditioning, strength training for dancers, nutrition for dancers, dancer coaching
 
 ## Oferta
 

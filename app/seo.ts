@@ -2,26 +2,30 @@ import type { Metadata } from "next";
 
 type Locale = "es" | "en";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://dancermethod.com";
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://roodancermethod.com";
 const siteUrl = new URL(SITE_URL);
 const locales = ["es", "en"] as const;
 
 const seo = {
   es: {
-    title: "Dancer Method | Entrenamiento para bailarines",
+    title: "Roo Varela | Dancer Method para bailarines",
     description:
-      "Entrenamiento, orientación alimentaria y acompañamiento online para bailarines que quieren ganar fuerza, rendimiento y continuidad.",
+      "Entrenamiento para bailarines, fuerza, nutrición y coaching online con Roo Varela, personal trainer y bailarina profesional.",
     path: "/es",
     ogLocale: "es_ES",
   },
   en: {
-    title: "Dancer Method | Training support for dancers",
+    title: "Roo Varela | Dancer Method for dancers",
     description:
-      "Online training, food guidance, and coaching for dancers who want to build strength, performance, and consistency.",
+      "Dance conditioning, strength training, nutrition, and online coaching by Roo Varela, personal trainer and professional dancer.",
     path: "/en",
     ogLocale: "en_US",
   },
-} satisfies Record<Locale, { title: string; description: string; path: string; ogLocale: string }>;
+} satisfies Record<
+  Locale,
+  { title: string; description: string; path: string; ogLocale: string }
+>;
 
 const ogImage = "/img/pose_rosa.png";
 
@@ -47,7 +51,7 @@ function localeMetadata(locale: Locale): Metadata {
       title: data.title,
       description: data.description,
       url: data.path,
-      siteName: "Dancer Method",
+      siteName: "Roo Varela · Dancer Method",
       locale: data.ogLocale,
       type: "website",
       images: [ogImage],
@@ -70,7 +74,7 @@ function serviceJsonLd(locale: Locale) {
       {
         "@type": "WebSite",
         "@id": `${absoluteUrl("/#website")}`,
-        name: "Dancer Method",
+        name: "Roo Varela · Dancer Method",
         url: absoluteUrl(seo[locale].path),
         inLanguage: locale,
       },
@@ -78,10 +82,12 @@ function serviceJsonLd(locale: Locale) {
         "@type": "Person",
         "@id": `${absoluteUrl("/#roo")}`,
         name: "Roo Varela",
-        jobTitle: isSpanish ? "Entrenadora personal" : "Personal trainer",
+        jobTitle: isSpanish
+          ? "Entrenadora personal y bailarina profesional"
+          : "Personal trainer and professional dancer",
         description: isSpanish
-          ? "Entrenadora personal y ex bailarina profesional, creadora de Dancer Method."
-          : "Personal trainer and former professional dancer, creator of Dancer Method.",
+          ? "Roo Varela es entrenadora personal y bailarina profesional, creadora de Dancer Method."
+          : "Roo Varela is a personal trainer and professional dancer, creator of Dancer Method.",
         sameAs: ["https://instagram.com/tufitnessroovarela"],
       },
       {
@@ -92,8 +98,14 @@ function serviceJsonLd(locale: Locale) {
         url: absoluteUrl(seo[locale].path),
         provider: { "@id": `${absoluteUrl("/#roo")}` },
         serviceType: isSpanish
-          ? "Entrenamiento y orientación alimentaria para bailarines"
-          : "Training and food guidance for dancers",
+          ? "Entrenamiento para bailarines, preparación física, fuerza, nutrición y coaching online"
+          : "Dance conditioning, strength training, nutrition, and online coaching for dancers",
+        audience: {
+          "@type": "Audience",
+          audienceType: isSpanish
+            ? "Bailarines amateurs, semiprofesionales y profesionales"
+            : "Amateur, semi-professional, and professional dancers",
+        },
         areaServed: "Online",
         offers: [
           {

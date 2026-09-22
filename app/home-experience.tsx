@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  useRef,
-  useState,
-  type MouseEvent,
-  type SubmitEvent,
-} from "react";
+import { useRef, useState, type MouseEvent, type SubmitEvent } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -56,6 +51,21 @@ export default function HomeExperience({
             reducedMotion: boolean;
           };
           if (reducedMotion) return;
+
+          const hero = document.getElementById("top");
+          const mainContent = document.getElementById("main-content");
+
+          if (hero && mainContent) {
+            ScrollTrigger.create({
+              trigger: hero,
+              start: "top top",
+              endTrigger: mainContent,
+              end: "top top",
+              pin: true,
+              pinSpacing: false,
+              anticipatePin: 1,
+            });
+          }
 
           gsap
             .timeline({ defaults: { ease: "power3.out" } })
@@ -459,6 +469,16 @@ export default function HomeExperience({
     requestAnimationFrame(() => nameInput.current?.focus());
   }
 
+  function scrollToPageTop(event: MouseEvent<HTMLAnchorElement>) {
+    event.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
+  }
+
   return (
     <main ref={root} className={styles.page}>
       <a className={styles.skipLink} href="#main-content">
@@ -845,13 +865,13 @@ export default function HomeExperience({
           <h2 id="contact-heading">{text.contactTitle}</h2>
           <p>{text.contactIntro}</p>
           <div className={`${styles.formFigure}`}>
-              <Image
-                src="/img/bailarina_sentada.png"
-                alt=""
-                fill
-                onLoad={() => ScrollTrigger.refresh()}
-                sizes="(max-width: 1023px) 86vw, 28rem"
-              />
+            <Image
+              src="/img/bailarina_sentada.png"
+              alt=""
+              fill
+              onLoad={() => ScrollTrigger.refresh()}
+              sizes="(max-width: 1023px) 86vw, 28rem"
+            />
           </div>
         </div>
         <form
@@ -928,7 +948,9 @@ export default function HomeExperience({
         <a href="https://app.clickfix.work" target="_blank" rel="noreferrer">
           {text.developedBy} ClickFix
         </a>
-        <a href="#top">{text.backToTop} ↑</a>
+        <a href="#top" onClick={scrollToPageTop}>
+          {text.backToTop} ↑
+        </a>
       </footer>
     </main>
   );

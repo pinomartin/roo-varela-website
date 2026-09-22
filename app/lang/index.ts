@@ -1,84 +1,89 @@
 const lang = {
   es: {
-    nav: ["El método", "Planes", "Sobre Roo", "Contacto"],
+    nav: ["Método", "Planes", "Sobre Roo", "Contacto"],
     navigationLabel: "Navegación principal",
     practiceLabel: "Los pilares de Dancer Method",
     skip: "Saltar al contenido",
-    announce: "DANCER METHOD — ACOMPAÑAMIENTO PARA QUIENES BAILAN",
-    heroLines: ["ENTRENA TU CUERPO.", "CUIDA TU MENTE.", "POTENCIA TU DANZA."],
-    intro: "Tu cuerpo es tu herramienta. Es hora de entrenarlo como tal.",
+    announce: "ROO VARELA — PERSONAL TRAINER & PROFESSIONAL DANCER",
+    heroLines: [
+      "DANCER METHOD.",
+      "ENTRENAMIENTO PARA BAILARINES.",
+      "POR ROO VARELA.",
+    ],
+    intro:
+      "Entrenamiento para bailarines que une dance conditioning, fuerza, nutrición y coaching para preparar tu cuerpo sin separarlo de tu danza.",
     primary: "Conoce el método",
     secondary: "Ver los planes",
-    storyTitle: "Bailar más no siempre significa estar mejor preparado.",
+    storyTitle: "Bailar más no siempre significa entrenar mejor.",
     story: [
       "Puedes pasar horas entrenando y aun así sentir que te falta fuerza, resistencia, estabilidad o energía.",
-      "Puedes saber bailar, pero no saber cómo entrenar fuera de la danza. O cuidar mucho tu cuerpo sin saber cómo organizar tu alimentación entre clases, ensayos y actuaciones.",
-      "Por eso creé Dancer Method: un método que entiende que tu entrenamiento debe adaptarse a tu danza.",
+      "Puedes saber bailar, pero no tener claro cómo combinar gimnasio y danza, cómo ganar fuerza sin perder movilidad o qué comer antes y después de un ensayo.",
+      "Por eso creé Dancer Method: mi método de entrenamiento para bailarines, performers y artistas que necesitan preparación física adaptada a clases, castings y actuaciones.",
     ],
     methodTitle: "El Método",
     methodBody:
-      "Un acompañamiento mensual para desarrollar un cuerpo más fuerte, preparado y consciente, sin separar tu entrenamiento de tu vida en la danza.",
+      "Entrenamiento físico para bailarines, fuerza, nutrición y coaching online para desarrollar un cuerpo más fuerte, preparado y consciente.",
     methodStageLabel: "Cómo funciona Dancer Method",
     methodCommitmentTitle:
-      "Tres meses para entender tu cuerpo, adaptar tu entrenamiento y construir continuidad.",
+      "Tres meses para entender tu cuerpo, adaptar tu preparación física y construir continuidad.",
     methodSteps: [
       {
         number: "MES 1",
         title: "CONOCER",
         detail:
-          "Empezamos a conocer tu cuerpo, tus hábitos, tu alimentación, tu rutina de danza y tus objetivos. Creamos las bases.",
+          "Analizamos tu cuerpo, hábitos, alimentación, rutina de danza y objetivos. Creamos las bases de tu entrenamiento complementario.",
       },
       {
         number: "MES 2",
         title: "ADAPTAR",
         detail:
-          "Empezamos a ver cómo responde tu cuerpo y qué está funcionando. Ajustamos lo necesario para que el entrenamiento y la alimentación se conviertan en hábitos reales, no en algo temporal.",
+          "Vemos cómo responde tu cuerpo y ajustamos fuerza, resistencia y alimentación para que entrenar se integre con tus ensayos, no compita con ellos.",
       },
       {
         number: "MES 3",
         title: "EVOLUCIONAR",
         detail:
-          "Con tres meses de trabajo podemos mirar el proceso con perspectiva, valorar tu evolución y entender mejor qué necesitas para seguir avanzando.",
+          "Miramos tu evolución con perspectiva y definimos cómo seguir mejorando rendimiento, bienestar y confianza en escena.",
       },
     ],
     methodCommitmentNote:
-      "3 meses no son una meta. Son el tiempo mínimo para conocer tu cuerpo, crear hábitos y empezar a ver tu evolución. Después continúas mes a mes, adaptando el proceso a tus nuevos objetivos, tu evolución y tu realidad como bailarín.",
-    includesTitle: "Tu cuerpo. Tu danza. Tu proceso.",
+      "3 meses no son una meta. Son el tiempo mínimo para conocer tu cuerpo, crear hábitos y empezar a ver tu evolución. Después continúas mes a mes, adaptando el proceso a tus nuevos objetivos, tu temporada y tu realidad como bailarín.",
+    includesTitle: "Tu cuerpo. Tu danza. Tu proceso",
     includes: [
       [
-        "Entrenamiento",
-        "En gimnasio o en casa: fuerza, estabilidad, resistencia, potencia y control corporal según tus necesidades.",
+        "Dance conditioning",
+        "Entrenamiento en gimnasio o en casa para fuerza, estabilidad, resistencia, potencia y control corporal según tu danza.",
       ],
       [
-        "Orientación alimentaria",
-        "Una estrategia que se integra en tu vida, tus ensayos, clases, actuaciones y objetivos.",
+        "Nutrición para bailarines",
+        "Orientación alimentaria educativa que se integra en tus clases, ensayos, actuaciones, horarios y objetivos.",
       ],
       [
-        "Dancer Talks",
-        "Encuentros online para hablar de la experiencia de bailar, preguntar y compartir.",
+        "Coaching para bailarines",
+        "Dancer Talks online para resolver dudas, hablar de hábitos y sostener el proceso con acompañamiento real.",
       ],
       [
         "Seguimiento",
-        "Porque entregarte un plan y desaparecer no es acompañarte: revisamos tu evolución y adaptamos el proceso.",
+        "Revisamos tu evolución y adaptamos el entrenamiento a castings, musicales, actuaciones, carga de ensayos y objetivos.",
       ],
     ],
-    plansTitle: "Elige el nivel de acompañamiento que necesitas.",
+    plansTitle: "Elige cómo quieres entrenar con Roo Varela.",
     plansIntro:
-      "No se trata de que uno sea mejor que el otro. Se trata de cuánto acompañamiento necesitas.",
+      "Essential te da estructura para entrenar con autonomía. Pro suma personalización y seguimiento directo conmigo.",
     planBadge: "Recomendado",
     planMonthlyLabel: "Mensual",
     plans: [
       {
         name: "ESSENTIAL",
         price: "USD 39 / mes",
-        role: "Estructura con autonomía",
-        subtitle: "Tu base. Tu ritmo. Tu proceso.",
-        body: "Para complementar tu danza con entrenamiento y orientación alimentaria con autonomía.",
+        role: "Dance training program",
+        subtitle: "Tu base de entrenamiento para bailar.",
+        body: "Para complementar tu danza con fuerza, conditioning y nutrición con estructura y autonomía.",
         cta: "Quiero empezar con Essential",
         items: [
-          "Método de entrenamiento para bailar",
-          "Programa base para gimnasio o casa",
-          "Guía de nutrición para bailar",
+          "Método de entrenamiento para bailarines",
+          "Programa base de fuerza y conditioning para gimnasio o casa",
+          "Guía de nutrición para bailarines",
           "1 Dancer Talk al mes",
           "Check-in mensual",
         ],
@@ -86,7 +91,7 @@ const lang = {
       {
         name: "PRO",
         price: "USD 79 / mes",
-        role: "Seguimiento personalizado",
+        role: "Online coach for dancers",
         bundle: {
           eyebrow: "Promoción 3 meses",
           price: "USD 200 / 3 meses",
@@ -95,13 +100,13 @@ const lang = {
           body: "El mismo PRO, con mejor precio al sostener el proceso inicial completo.",
           cta: "Reservar promoción PRO",
         },
-        subtitle: "El método y mi acompañamiento.",
-        body: "Para contar con un programa diseñado para ti y un seguimiento más cercano.",
+        subtitle: "El método, adaptado a tu cuerpo y temporada.",
+        body: "Para contar con entrenamiento personalizado, nutrición adaptada y seguimiento cercano de Roo.",
         cta: "Quiero acompañamiento Pro",
         items: [
-          "Entrenamiento personalizado",
-          "Orientación alimentaria personalizada",
-          "Seguimiento semanal y adaptaciones",
+          "Entrenamiento personalizado para bailarines",
+          "Nutrición personalizada para tu actividad y horarios",
+          "Seguimiento semanal y adaptaciones según ensayos o actuaciones",
           "2 Dancer Talks al mes",
           "1 sesión individual al mes",
         ],
@@ -112,45 +117,45 @@ const lang = {
       [
         "PILAR I",
         "CUERPO",
-        "Entrenamiento de fuerza y preparación física adaptado a tu nivel, objetivos y forma de bailar.",
+        "Entrenamiento de fuerza para bailarines, estabilidad, resistencia, potencia y control corporal.",
       ],
       [
         "PILAR II",
         "RENDIMIENTO",
-        "Orientación alimentaria personalizada para tu actividad, horarios, necesidades y gustos.",
+        "Nutrición para bailarines adaptada a tu actividad, horarios, necesidades y gustos.",
       ],
       [
         "PILAR III",
         "PERSONA",
-        "Vemos el proceso con perspectiva y valoramos tu evolución.",
+        "Coaching, seguimiento y hábitos para sostener tu rendimiento sin perder bienestar.",
       ],
     ],
-    rooTitle: "Detrás de Dancer Method estoy yo.",
+    rooTitle: "Soy Roo Varela, personal trainer y bailarina profesional.",
     rooBody: [
       "Soy Roo. Durante casi 20 años, la danza formó parte de mi vida profesional. Sé lo que significa que tu cuerpo sea tu herramienta de trabajo.",
-      "Hoy soy entrenadora personal y he unido mis dos mundos para crear lo que me habría gustado tener cuando era bailarina: un espacio para entender qué haces, cómo adaptarlo a tu realidad y cómo cuidar tu cuerpo durante el camino.",
+      "Hoy soy entrenadora personal y he unido mis dos mundos para crear Dancer Method: entrenamiento complementario, fuerza, nutrición y coaching para bailarines que necesitan adaptar su preparación a ensayos, castings, musicales y actuaciones.",
     ],
     rooClosing:
       "Quiero ayudarte a construir un cuerpo que te permita bailar, rendir y disfrutar de tu danza durante muchos años.",
-    forYouTitle: "Dancer Method es para ti si…",
+    forYouTitle: "Dancer Method es para ti si buscas…",
     forYou: [
-      "Quieres complementar tu formación en danza.",
-      "Quieres ganar fuerza y confianza.",
-      "Quieres aprender a entrenar sin interferir con tus clases y trabajos.",
-      "Quieres mejorar tu alimentación y tus hábitos.",
-      "Estás preparando una actuación, un casting, una competición o una nueva etapa profesional.",
-      "Quieres cuidar de tu cuerpo más allá de la estética.",
+      "Entrenamiento para bailarines profesionales, amateurs o semiprofesionales.",
+      "Entrenamiento de fuerza para bailarines sin perder movilidad ni presencia escénica.",
+      "Preparación física para castings, musicales, actuaciones o una nueva etapa profesional.",
+      "Nutrición para bailarines que encaje con clases, ensayos y horarios reales.",
+      "Coaching para bailarines y acompañamiento para sostener hábitos.",
+      "Cuidar el cuerpo del bailarín más allá de la estética.",
     ],
-    contactTitle: "Empieza tu proceso.",
+    contactTitle: "Entrena con Roo Varela.",
     contactIntro:
       "Completa estos tres datos y prepararé un mensaje para WhatsApp. No se envía nada todavía: lo revisarás antes de mandarlo.",
     name: "Nombre",
     goal: "Objetivo principal",
     goalHint:
-      "Ej: ganar fuerza para ensayos, organizar tu alimentación en temporada o volver a entrenar sin interferir con clases.",
+      "Ej: ganar fuerza para ensayos, preparar un casting, mejorar resistencia o organizar tu nutrición en temporada.",
     interest: "¿Qué acompañamiento te interesa?",
     interestHint:
-      "Essential es estructura con autonomía. Pro suma seguimiento personalizado. Si dudas, Roo te orienta.",
+      "Essential es un dance training program con autonomía. Pro suma entrenamiento personalizado y coaching directo. Si dudas, Roo te orienta.",
     interests: {
       essential: "Essential — estructura con autonomía",
       pro: "Pro — seguimiento personalizado",
@@ -168,96 +173,93 @@ const lang = {
     email: "Email",
     instagram: "Instagram",
     language: "EN",
-    footer: "DANCER METHOD — TU CUERPO, TU DANZA, TU PROCESO",
+    footer: "ROO VARELA · DANCER METHOD — TU CUERPO, TU DANZA, TU PROCESO",
     developedBy: "Desarrollado por",
     backToTop: "Volver al inicio",
     message: (name: string, goal: string, interest: string) =>
       `Hola, soy ${name}.\nMi objetivo principal es: ${goal}.\nMe interesa: ${interest}.\nMe gustaría recibir más información sobre Dancer Method.`,
   },
   en: {
-    nav: ["The method", "Plans", "About Roo", "Contact"],
+    nav: ["Method", "Plans", "About Roo", "Contact"],
     navigationLabel: "Primary navigation",
     practiceLabel: "Dancer Method pillars",
     skip: "Skip to content",
-    announce: "DANCER METHOD — SUPPORT FOR DANCERS",
-    heroLines: [
-      "TRAIN YOUR BODY.",
-      "CARE FOR YOUR MIND.",
-      "ELEVATE YOUR DANCE.",
-    ],
-    intro: "Your body is your tool. It is time to train it accordingly.",
+    announce: "ROO VARELA — PERSONAL TRAINER & PROFESSIONAL DANCER",
+    heroLines: ["DANCER METHOD.", "TRAINING FOR DANCERS.", "BY ROO VARELA."],
+    intro:
+      "Training for dancers combining dance conditioning, strength training, nutrition, and coaching so your body supports your dance.",
     primary: "Discover the method",
     secondary: "View plans",
-    storyTitle: "Dancing more does not always mean being better prepared.",
+    storyTitle: "Dancing more does not always mean training better.",
     story: [
       "You can spend hours training and still feel you lack strength, endurance, stability, or energy.",
-      "You can know how to dance without knowing how to train outside dance. Or care deeply for your body without knowing how to organise food around classes, rehearsals, and performances.",
-      "That is why I created Dancer Method: a method built around training that adapts to your dance.",
+      "You can know how to dance without knowing how to combine gym and dance, build strength without losing mobility, or eat around classes and rehearsals.",
+      "That is why I created Dancer Method: my training method for dancers, performers, and artists who need physical preparation shaped around classes, castings, and performances.",
     ],
     methodTitle: "The Method",
     methodBody:
-      "Monthly support to develop a stronger, more prepared, more aware body—without separating your training from your life in dance.",
+      "Dance conditioning, strength training, nutrition, and online coaching to develop a stronger, better-prepared, more aware body.",
     methodStageLabel: "How Dancer Method works",
     methodCommitmentTitle:
-      "Three months to understand your body, adapt your training, and build continuity.",
+      "Three months to understand your body, adapt your physical preparation, and build continuity.",
     methodSteps: [
       {
         number: "MONTH 1",
         title: "LEARN",
         detail:
-          "We begin to understand your body, habits, nutrition, dance routine, and goals. We build the foundations.",
+          "We map your body, habits, nutrition, dance routine, and goals. We build the foundations for your cross training.",
       },
       {
         number: "MONTH 2",
         title: "ADAPT",
         detail:
-          "We start seeing how your body responds and what is working. We adjust what is needed so training and food become real habits, not something temporary.",
+          "We see how your body responds and adjust strength, endurance, and nutrition so training supports rehearsals instead of competing with them.",
       },
       {
         number: "MONTH 3",
         title: "EVOLVE",
         detail:
-          "After three months of work, we can view the process with perspective, assess your progress, and better understand what you need to keep moving forward.",
+          "We review your progress with perspective and define how to keep improving performance, wellbeing, and confidence on stage.",
       },
     ],
     methodCommitmentNote:
-      "3 months are not a finish line. They are the minimum time to understand your body, create habits, and begin to see your progress. After that, you continue month to month, adapting the process to your new goals, progress, and reality as a dancer.",
-  
+      "3 months are not a finish line. They are the minimum time to understand your body, create habits, and begin to see your progress. After that, you continue month to month, adapting the process to your goals, season, and reality as a dancer.",
+
     includesTitle: "Your body. Your dance. Your process.",
     includes: [
       [
-        "Training",
-        "At the gym or at home: strength, stability, endurance, power, and body control shaped around your needs.",
+        "Dance conditioning",
+        "Gym or home training for strength, stability, endurance, power, and body control shaped around your dance.",
       ],
       [
-        "Food guidance",
-        "A strategy that fits your life, rehearsals, classes, performances, and goals.",
+        "Nutrition for dancers",
+        "Educational nutrition guidance that fits classes, rehearsals, performances, schedules, and goals.",
       ],
       [
-        "Dancer Talks",
-        "Online sessions to talk about the experience of dancing, ask questions, and share.",
+        "Dancer coaching",
+        "Online Dancer Talks to ask questions, work on habits, and sustain the process with real support.",
       ],
       [
         "Follow-up",
-        "Handing over a plan and disappearing is not support: we review your progress and adapt the process.",
+        "We review your progress and adapt training around castings, musical theatre, performances, rehearsal load, and goals.",
       ],
     ],
-    plansTitle: "Choose the level of support you need.",
+    plansTitle: "Choose how you want to train with Roo Varela.",
     plansIntro:
-      "It is not about one being better than the other. It is about how much support you need.",
+      "Essential gives you structure to train with autonomy. Pro adds personalization and direct follow-up with me.",
     planBadge: "Recommended",
     planMonthlyLabel: "Monthly",
     plans: [
       {
         name: "ESSENTIAL",
         price: "USD 39 / month",
-        role: "Structure with autonomy",
-        subtitle: "Your base. Your pace. Your process.",
-        body: "For complementing your dance with training and food guidance while working independently.",
+        role: "Dance training program",
+        subtitle: "Your training base for dance.",
+        body: "For complementing your dance with strength, conditioning, and nutrition with structure and autonomy.",
         cta: "Start with Essential",
         items: [
           "Training method for dancers",
-          "Gym or home base programme",
+          "Base strength and conditioning program for gym or home",
           "Nutrition guide for dancers",
           "1 Dancer Talk per month",
           "Monthly check-in",
@@ -266,7 +268,7 @@ const lang = {
       {
         name: "PRO",
         price: "USD 79 / month",
-        role: "Personalized follow-up",
+        role: "Online coach for dancers",
         bundle: {
           eyebrow: "3-month promotion",
           price: "USD 200 / 3 months",
@@ -275,13 +277,13 @@ const lang = {
           body: "The same PRO support, with a better price when you hold the full initial process.",
           cta: "Reserve PRO promotion",
         },
-        subtitle: "The method, plus my support.",
-        body: "For a programme designed around you and closer follow-up.",
+        subtitle: "The method, adapted to your body and season.",
+        body: "For personalized training, adapted nutrition, and closer follow-up with Roo.",
         cta: "Choose Pro support",
         items: [
-          "Personalised training",
-          "Personalised food guidance",
-          "Weekly follow-up and adaptations",
+          "Personalized training for dancers",
+          "Personalized nutrition guidance for your activity and schedule",
+          "Weekly follow-up and adaptations around rehearsals or performances",
           "2 Dancer Talks per month",
           "1 individual session per month",
         ],
@@ -292,45 +294,45 @@ const lang = {
       [
         "PILLAR I",
         "BODY",
-        "Strength and physical preparation adapted to your level, goals, and way of dancing.",
+        "Strength training for dancers, stability, endurance, power, and body control.",
       ],
       [
         "PILLAR 2",
         "PERFORMANCE",
-        "Personalised food guidance shaped around your activity, schedule, needs, and preferences.",
+        "Dancer nutrition shaped around your activity, schedule, needs, and preferences.",
       ],
       [
         "PILLAR 3",
         "PERSON",
-        "A space to talk, share experiences, and unpack what it means to live through dance.",
+        "Coaching, follow-up, and habits to sustain performance without losing wellbeing.",
       ],
     ],
-    rooTitle: "I am Roo, the person behind Dancer Method.",
+    rooTitle: "I am Roo Varela, personal trainer and professional dancer.",
     rooBody: [
       "Dance was part of my professional life for almost 20 years. I know what it means for your body to be your working tool.",
-      "Today I am a personal trainer. I brought my two worlds together to create what I wish I had had as a dancer: a space to understand what you do, adapt it to your reality, and care for your body along the way.",
+      "Today I am a personal trainer. I brought my two worlds together to create Dancer Method: cross training, strength, nutrition, and coaching for dancers who need support around rehearsals, castings, musical theatre, and performances.",
     ],
     rooClosing:
       "I want to help you build a body that lets you dance, perform, and enjoy dance for many years.",
-    forYouTitle: "Dancer Method is for you if…",
+    forYouTitle: "Dancer Method is for you if you want…",
     forYou: [
-      "You want to complement your dance training.",
-      "You want to build strength and confidence.",
-      "You want to learn to train without interfering with your classes and work.",
-      "You want to improve your food habits.",
-      "You are preparing for a performance, casting, competition, or new professional stage.",
-      "You want to care for your body beyond aesthetics.",
+      "Training for professional, amateur, or semi-professional dancers.",
+      "Strength training for dancers without losing mobility or stage presence.",
+      "Physical preparation for castings, musical theatre, performances, or a new professional stage.",
+      "Nutrition for dancers that fits classes, rehearsals, and real schedules.",
+      "Dancer coaching and support to sustain habits.",
+      "To care for the dancer's body beyond aesthetics.",
     ],
-    contactTitle: "Start your process.",
+    contactTitle: "Train with Roo Varela.",
     contactIntro:
       "Complete these three details and I will prepare a WhatsApp message. Nothing is sent yet: you will review it before sending.",
     name: "Name",
     goal: "Main goal",
     goalHint:
-      "Example: build strength for rehearsals, organize your nutrition during a busy season, or train again without interfering with classes.",
+      "Example: build strength for rehearsals, prepare for a casting, improve endurance, or organize nutrition during a busy season.",
     interest: "Which level of support interests you?",
     interestHint:
-      "Essential is structure with autonomy. Pro adds personalized follow-up. If you are unsure, Roo will guide you.",
+      "Essential is a dance training program with autonomy. Pro adds personalized training and direct coaching. If you are unsure, Roo will guide you.",
     interests: {
       essential: "Essential — structure with autonomy",
       pro: "Pro — personalized follow-up",
@@ -348,7 +350,7 @@ const lang = {
     email: "Email",
     instagram: "Instagram",
     language: "ES",
-    footer: "DANCER METHOD — YOUR BODY, YOUR DANCE, YOUR PROCESS",
+    footer: "ROO VARELA · DANCER METHOD — YOUR BODY, YOUR DANCE, YOUR PROCESS",
     developedBy: "Developed by",
     backToTop: "Back to top",
     message: (name: string, goal: string, interest: string) =>

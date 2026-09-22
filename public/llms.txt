@@ -1,14 +1,29 @@
-# Dancer Method
+# Roo Varela · Dancer Method
 
 ## Overview
 
-Dancer Method is an online training and food guidance program for dancers created by Roo Varela, a personal trainer and former professional dancer. It helps amateur, semi-professional, and professional dancers build strength, stability, endurance, body control, and training continuity around their dance practice.
+Roo Varela is a personal trainer and professional dancer. Dancer Method is her online training, nutrition, and coaching program for dancers. It helps amateur, semi-professional, and professional dancers build strength, stability, endurance, body control, and training continuity around classes, rehearsals, castings, and performances.
+
+Primary positioning: Roo Varela is the personal brand. Dancer Method is the flagship product.
 
 ## Who It Is For
 
 - Dancers who want to complement dance classes, rehearsals, performances, castings, or competitions with structured physical preparation.
 - Dancers who want to build strength and confidence without separating training from their dance schedule.
 - Dancers who want food guidance that fits classes, rehearsals, performances, preferences, and everyday life.
+
+## Priority Queries
+
+- entrenamiento para bailarines / dance training
+- entrenamiento para bailarines profesionales / training for professional dancers
+- entrenamiento físico para bailarines / dance conditioning
+- preparación física para bailarines / dancer conditioning
+- entrenamiento complementario para bailarines / cross training for dancers
+- entrenador personal para bailarines / personal trainer for dancers
+- entrenamiento de fuerza para bailarines / strength training for dancers
+- nutrición para bailarines / nutrition for dancers
+- entrenamiento online para bailarines / online training for dancers
+- coaching para bailarines / dancer coaching
 
 ## Method
 
@@ -26,7 +41,7 @@ Dancer Method is educational training and food guidance for dancers. It is not c
 
 ## Key Pages
 
-- Spanish homepage: https://dancermethod.com/es
-- English homepage: https://dancermethod.com/en
-- Pricing for agents: https://dancermethod.com/pricing.md
+- Spanish homepage: https://roodancermethod.com/es
+- English homepage: https://roodancermethod.com/en
+- Pricing for agents: https://roodancermethod.com/pricing.md
 - Instagram: https://instagram.com/tufitnessroovarela
