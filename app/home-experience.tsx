@@ -130,22 +130,6 @@ export default function HomeExperience({
             );
 
           if (desktop) {
-            //   gsap
-            //     .timeline({
-            //       defaults: { ease: "none" },
-            //       scrollTrigger: {
-            //         trigger: ".story",
-            //         start: "top top",
-            //         end: "+=120%",
-            //         pin: true,
-            //         scrub: 0.8,
-            //       },
-            //     })
-            //     .to(".story-image", { scale: 1.2 }, 0)
-            //     .to(".story-pole", { yPercent: -4, xPercent: -1 }, 0)
-            //     .to(".story-usa", { yPercent: -3, xPercent: 1 }, 0);
-            // }
-
             gsap
               .timeline({
                 defaults: { duration: 0.86, ease: "power3.out" },
@@ -522,7 +506,6 @@ export default function HomeExperience({
               sizes="(max-width: 1023px) 85vw, 58vw"
             />
           </div>
-          <div className={styles.ring} />
         </div>
         <div className={styles.heroContent}>
           <h1 id="hero-heading" className={styles.heroTitle}>

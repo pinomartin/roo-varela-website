@@ -24,32 +24,32 @@ const lang = {
     ],
     methodTitle: "El Método",
     methodBody:
-      "Entrenamiento físico para bailarines, fuerza, nutrición y coaching online para desarrollar un cuerpo más fuerte, preparado y consciente.",
+      "Fuerza, nutrición y coaching para un cuerpo más preparado y consciente.",
     methodStageLabel: "Cómo funciona Dancer Method",
     methodCommitmentTitle:
-      "Tres meses para entender tu cuerpo, adaptar tu preparación física y construir continuidad.",
+      "Tres meses para conocer tu cuerpo, adaptarlo y crear continuidad.",
     methodSteps: [
       {
         number: "MES 1",
         title: "CONOCER",
         detail:
-          "Analizamos tu cuerpo, hábitos, alimentación, rutina de danza y objetivos. Creamos las bases de tu entrenamiento complementario.",
+          "Analizamos tu cuerpo, hábitos, danza y objetivos para crear la base del entrenamiento.",
       },
       {
         number: "MES 2",
         title: "ADAPTAR",
         detail:
-          "Vemos cómo responde tu cuerpo y ajustamos fuerza, resistencia y alimentación para que entrenar se integre con tus ensayos, no compita con ellos.",
+          "Ajustamos fuerza, resistencia y alimentación para que entrenar acompañe tus ensayos.",
       },
       {
         number: "MES 3",
         title: "EVOLUCIONAR",
         detail:
-          "Miramos tu evolución con perspectiva y definimos cómo seguir mejorando rendimiento, bienestar y confianza en escena.",
+          "Revisamos tu evolución y definimos cómo seguir mejorando rendimiento y bienestar.",
       },
     ],
     methodCommitmentNote:
-      "3 meses no son una meta. Son el tiempo mínimo para conocer tu cuerpo, crear hábitos y empezar a ver tu evolución. Después continúas mes a mes, adaptando el proceso a tus nuevos objetivos, tu temporada y tu realidad como bailarín.",
+      "3 meses son la base para conocer tu cuerpo, crear hábitos y empezar a evolucionar. Después, el proceso se adapta mes a mes a tu temporada y objetivos.",
     includesTitle: "Tu cuerpo. Tu danza. Tu proceso",
     includes: [
       [
@@ -207,32 +207,32 @@ const lang = {
     ],
     methodTitle: "The Method",
     methodBody:
-      "Dance conditioning, strength training, nutrition, and online coaching to develop a stronger, better-prepared, more aware body.",
+      "Strength, nutrition, and coaching for a better-prepared, more aware body.",
     methodStageLabel: "How Dancer Method works",
     methodCommitmentTitle:
-      "Three months to understand your body, adapt your physical preparation, and build continuity.",
+      "Three months to understand your body, adapt it, and build continuity.",
     methodSteps: [
       {
         number: "MONTH 1",
         title: "LEARN",
         detail:
-          "We map your body, habits, nutrition, dance routine, and goals. We build the foundations for your cross training.",
+          "We map your body, habits, dance routine, and goals to build your training base.",
       },
       {
         number: "MONTH 2",
         title: "ADAPT",
         detail:
-          "We see how your body responds and adjust strength, endurance, and nutrition so training supports rehearsals instead of competing with them.",
+          "We adjust strength, endurance, and nutrition so training supports your rehearsals.",
       },
       {
         number: "MONTH 3",
         title: "EVOLVE",
         detail:
-          "We review your progress with perspective and define how to keep improving performance, wellbeing, and confidence on stage.",
+          "We review your progress and define how to keep improving performance and wellbeing.",
       },
     ],
     methodCommitmentNote:
-      "3 months are not a finish line. They are the minimum time to understand your body, create habits, and begin to see your progress. After that, you continue month to month, adapting the process to your goals, season, and reality as a dancer.",
+      "3 months are the base to understand your body, build habits, and begin to evolve. After that, the process adapts month by month to your season and goals.",
 
     includesTitle: "Your body. Your dance. Your process.",
     includes: [

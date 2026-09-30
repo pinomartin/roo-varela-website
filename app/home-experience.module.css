@@ -136,13 +136,6 @@
   height: 100%;
   object-fit: contain;
 }
-.ring {
-  position: absolute;
-  inset: 0;
-  border: clamp(2rem, 5vw, 5.5rem) solid var(--violet);
-  border-radius: 50%;
-  clip-path: inset(0 0 52% 0);
-}
 .heroContent {
   position: relative;
   z-index: 1;
@@ -1425,7 +1418,8 @@
     min-height: 4.5rem;
   }
   .hero {
-    padding-top: 7rem;
+    min-height: auto;
+    padding-top: 5rem;
   }
   .heroTitle {
     font-size: clamp(2.75rem, 12.5vw, 4.7rem);
