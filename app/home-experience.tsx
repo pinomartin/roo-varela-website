@@ -130,313 +130,314 @@ export default function HomeExperience({
             );
 
           if (desktop) {
+            //   gsap
+            //     .timeline({
+            //       defaults: { ease: "none" },
+            //       scrollTrigger: {
+            //         trigger: ".story",
+            //         start: "top top",
+            //         end: "+=120%",
+            //         pin: true,
+            //         scrub: 0.8,
+            //       },
+            //     })
+            //     .to(".story-image", { scale: 1.2 }, 0)
+            //     .to(".story-pole", { yPercent: -4, xPercent: -1 }, 0)
+            //     .to(".story-usa", { yPercent: -3, xPercent: 1 }, 0);
+            // }
+
             gsap
               .timeline({
-                defaults: { ease: "none" },
+                defaults: { duration: 0.86, ease: "power3.out" },
                 scrollTrigger: {
-                  trigger: ".story",
-                  start: "top top",
-                  end: "+=120%",
-                  pin: true,
-                  scrub: 0.8,
+                  trigger: ".method-motion",
+                  start: "top 72%",
+                  once: true,
                 },
               })
-              .to(".story-image", { scale: 1.2 }, 0)
-              .to(".story-pole", { yPercent: -4, xPercent: -1 }, 0)
-              .to(".story-usa", { yPercent: -3, xPercent: 1 }, 0);
-          }
+              .from(".method-constellation span", {
+                scale: 0,
+                rotation: -45,
+                autoAlpha: 0,
+                stagger: { amount: 0.28, from: "random" },
+              })
+              .from(
+                ".method-intro-body",
+                { clipPath: "inset(0 0 100% 0)", y: 18, autoAlpha: 0 },
+                "<0.12",
+              );
 
-          gsap
-            .timeline({
-              defaults: { duration: 0.86, ease: "power3.out" },
+            gsap.to(".method-constellation", {
+              yPercent: desktop ? -10 : -4,
+              ease: "none",
               scrollTrigger: {
                 trigger: ".method-motion",
-                start: "top 72%",
-                once: true,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 0.8,
               },
-            })
-            .from(".method-constellation span", {
-              scale: 0,
-              rotation: -45,
-              autoAlpha: 0,
-              stagger: { amount: 0.28, from: "random" },
-            })
-            .from(
-              ".method-intro-body",
-              { clipPath: "inset(0 0 100% 0)", y: 18, autoAlpha: 0 },
-              "<0.12",
-            );
+            });
 
-          gsap.to(".method-constellation", {
-            yPercent: desktop ? -10 : -4,
-            ease: "none",
-            scrollTrigger: {
-              trigger: ".method-motion",
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 0.8,
-            },
-          });
+            if (desktop) {
+              gsap.utils
+                .toArray<HTMLElement>(".horizontal-stage")
+                .forEach((stage) => {
+                  if (stage.classList.contains("method-stage")) return;
 
-          if (desktop) {
-            gsap.utils
-              .toArray<HTMLElement>(".horizontal-stage")
-              .forEach((stage) => {
-                if (stage.classList.contains("method-stage")) return;
+                  const track =
+                    stage.querySelector<HTMLElement>(".horizontal-track");
+                  const scenes = gsap.utils.toArray<HTMLElement>(
+                    stage.querySelectorAll(".scene"),
+                  );
 
-                const track =
-                  stage.querySelector<HTMLElement>(".horizontal-track");
-                const scenes = gsap.utils.toArray<HTMLElement>(
-                  stage.querySelectorAll(".scene"),
-                );
+                  if (!track || scenes.length < 2) return;
 
-                if (!track || scenes.length < 2) return;
-
-                const horizontalTween = gsap.timeline({
-                  scrollTrigger: {
-                    trigger: stage,
-                    start: "top top",
-                    end: () =>
-                      `+=${window.innerWidth * (scenes.length - 0.55)}`,
-                    pin: true,
-                    scrub: 0.7,
-                    anticipatePin: 1,
-                  },
-                });
-
-                horizontalTween
-                  .to(track, {
-                    xPercent: -((scenes.length - 1) / scenes.length) * 100,
-                    ease: "none",
-                    duration: scenes.length - 1,
-                  })
-                  .to({}, { duration: 0.45 });
-
-                scenes.forEach((scene, index) => {
-                  gsap.from(scene.querySelector(".scene-image-frame"), {
-                    scale: 0.78,
-                    rotation: index % 2 === 0 ? -8 : 8,
-                    autoAlpha: 0,
-                    ease: "power3.out",
+                  const horizontalTween = gsap.timeline({
                     scrollTrigger: {
-                      trigger: scene,
-                      containerAnimation: horizontalTween,
-                      start: "left 74%",
-                      end: "left 42%",
-                      scrub: 0.8,
+                      trigger: stage,
+                      start: "top top",
+                      end: () =>
+                        `+=${window.innerWidth * (scenes.length - 0.55)}`,
+                      pin: true,
+                      scrub: 0.7,
+                      anticipatePin: 1,
                     },
                   });
 
-                  gsap.to(scene.querySelector(".scene-photo"), {
-                    xPercent: index === 1 ? -5 : 5,
-                    yPercent: index === 2 ? -3 : 2,
-                    scale: 1.02,
+                  horizontalTween
+                    .to(track, {
+                      xPercent: -((scenes.length - 1) / scenes.length) * 100,
+                      ease: "none",
+                      duration: scenes.length - 1,
+                    })
+                    .to({}, { duration: 0.45 });
+
+                  scenes.forEach((scene, index) => {
+                    gsap.from(scene.querySelector(".scene-image-frame"), {
+                      scale: 0.78,
+                      rotation: index % 2 === 0 ? -8 : 8,
+                      autoAlpha: 0,
+                      ease: "power3.out",
+                      scrollTrigger: {
+                        trigger: scene,
+                        containerAnimation: horizontalTween,
+                        start: "left 74%",
+                        end: "left 42%",
+                        scrub: 0.8,
+                      },
+                    });
+
+                    gsap.to(scene.querySelector(".scene-photo"), {
+                      xPercent: index === 1 ? -5 : 5,
+                      yPercent: index === 2 ? -3 : 2,
+                      scale: 1.02,
+                      ease: "none",
+                      scrollTrigger: {
+                        trigger: scene,
+                        containerAnimation: horizontalTween,
+                        start: "left 80%",
+                        end: "right 24%",
+                        scrub: true,
+                      },
+                    });
+                  });
+                });
+            } else {
+              gsap.utils
+                .toArray<HTMLElement>(".horizontal-stage")
+                .forEach((stage) => {
+                  gsap.from(stage.querySelectorAll(".scene-image-frame"), {
+                    y: 36,
+                    scale: 0.9,
+                    autoAlpha: 0,
+                    duration: 0.8,
+                    ease: "power3.out",
+                    stagger: 0.1,
+                    scrollTrigger: {
+                      trigger: stage,
+                      start: "top 72%",
+                      once: true,
+                    },
+                  });
+                });
+            }
+
+            gsap
+              .timeline({
+                defaults: { duration: 0.72, ease: "power3.out" },
+                scrollTrigger: {
+                  trigger: ".method-commitment-note",
+                  start: "top 78%",
+                  once: true,
+                },
+              })
+              .from(".method-note-word", {
+                yPercent: 105,
+                autoAlpha: 0,
+                filter: "blur(10px)",
+                stagger: { each: 0.018, from: "start" },
+              })
+              .from(
+                ".method-commitment-note",
+                { letterSpacing: "0.025em", duration: 1.1 },
+                0,
+              );
+
+            const includeCards = gsap.utils.toArray<HTMLElement>(
+              ".includes-motion .includeItem",
+            );
+
+            if (desktop) {
+              includeCards.forEach((card, index) => {
+                gsap.from(card, {
+                  y: 72,
+                  rotation: index % 2 === 0 ? -3 : 3,
+                  autoAlpha: 0,
+                  ease: "power3.out",
+                  scrollTrigger: {
+                    trigger: card,
+                    start: "top 88%",
+                    end: "top 50%",
+                    scrub: 0.75,
+                  },
+                });
+
+                if (index < includeCards.length - 1) {
+                  gsap.to(card, {
+                    autoAlpha: 0.72,
                     ease: "none",
                     scrollTrigger: {
-                      trigger: scene,
-                      containerAnimation: horizontalTween,
-                      start: "left 80%",
-                      end: "right 24%",
+                      trigger: includeCards[index + 1],
+                      start: "top 72%",
+                      end: "top 38%",
                       scrub: true,
                     },
                   });
-                });
+                }
               });
-          } else {
-            gsap.utils
-              .toArray<HTMLElement>(".horizontal-stage")
-              .forEach((stage) => {
-                gsap.from(stage.querySelectorAll(".scene-image-frame"), {
-                  y: 36,
-                  scale: 0.9,
-                  autoAlpha: 0,
-                  duration: 0.8,
-                  ease: "power3.out",
-                  stagger: 0.1,
-                  scrollTrigger: {
-                    trigger: stage,
-                    start: "top 72%",
-                    once: true,
-                  },
-                });
-              });
-          }
+            }
 
-          gsap
-            .timeline({
-              defaults: { duration: 0.72, ease: "power3.out" },
-              scrollTrigger: {
-                trigger: ".method-commitment-note",
-                start: "top 78%",
-                once: true,
-              },
-            })
-            .from(".method-note-word", {
-              yPercent: 105,
-              autoAlpha: 0,
-              filter: "blur(10px)",
-              stagger: { each: 0.018, from: "start" },
-            })
-            .from(
-              ".method-commitment-note",
-              { letterSpacing: "0.025em", duration: 1.1 },
-              0,
-            );
-
-          const includeCards = gsap.utils.toArray<HTMLElement>(
-            ".includes-motion .includeItem",
-          );
-
-          if (desktop) {
-            includeCards.forEach((card, index) => {
-              gsap.from(card, {
-                y: 72,
-                rotation: index % 2 === 0 ? -3 : 3,
-                autoAlpha: 0,
-                ease: "power3.out",
+            gsap
+              .timeline({
+                defaults: { duration: 0.62, ease: "power3.out" },
                 scrollTrigger: {
-                  trigger: card,
-                  start: "top 88%",
-                  end: "top 50%",
-                  scrub: 0.75,
+                  trigger: ".plans-motion",
+                  start: "top 68%",
+                  once: true,
                 },
+              })
+              .from(".plans-motion .plan", {
+                y: 24,
+                autoAlpha: 0,
+                stagger: 0.08,
+                duration: 0.68,
+              })
+              .from(
+                ".plans-motion .plan-badge",
+                { scale: 0.86, autoAlpha: 0, duration: 0.42 },
+                "-=0.22",
+              )
+              .from(
+                ".plans-motion .featured-plan .original-price",
+                { x: 18, autoAlpha: 0, duration: 0.42 },
+                "<0.08",
+              )
+              .from(
+                ".plans-motion .plan li",
+                { x: 14, autoAlpha: 0, stagger: 0.035, duration: 0.45 },
+                "<0.04",
+              );
+
+            gsap
+              .timeline({
+                defaults: { duration: 0.68, ease: "power3.out" },
+                scrollTrigger: {
+                  trigger: ".process-motion",
+                  start: "top 70%",
+                  once: true,
+                },
+              })
+              .from(".process-motion .processList li", {
+                xPercent: 10,
+                autoAlpha: 0,
+                stagger: 0.14,
               });
 
-              if (index < includeCards.length - 1) {
-                gsap.to(card, {
-                  autoAlpha: 0.72,
-                  ease: "none",
-                  scrollTrigger: {
-                    trigger: includeCards[index + 1],
-                    start: "top 72%",
-                    end: "top 38%",
-                    scrub: true,
-                  },
-                });
-              }
+            gsap
+              .timeline({
+                defaults: { duration: 0.9, ease: "power3.out" },
+                scrollTrigger: {
+                  trigger: ".roo-motion",
+                  start: "top 72%",
+                  once: true,
+                },
+              })
+              .fromTo(
+                ".roo-motion .rooFigure",
+                { clipPath: "inset(0 100% 0 0)", x: -80, autoAlpha: 0 },
+                { clipPath: "inset(0 0% 0 0)", x: 0, autoAlpha: 1 },
+              )
+              .fromTo(
+                ".roo-motion .rooCopy",
+                { x: 80, autoAlpha: 0 },
+                { x: 0, autoAlpha: 1 },
+                "<",
+              )
+              .fromTo(
+                ".roo-motion .rooPhoto",
+                { scale: 1.08 },
+                { scale: 1, duration: 1.05 },
+                "<",
+              );
+
+            gsap.from(".for-you-motion li", {
+              xPercent: -8,
+              autoAlpha: 0,
+              duration: 0.55,
+              stagger: 0.08,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: ".for-you-motion",
+                start: "top 72%",
+                once: true,
+              },
             });
+
+            gsap
+              .timeline({
+                defaults: { duration: 0.6, ease: "power3.out" },
+                scrollTrigger: {
+                  trigger: ".contact-motion",
+                  start: "top 72%",
+                  once: true,
+                },
+              })
+              .from(".contact-motion .contactForm > *", {
+                y: 24,
+                autoAlpha: 0,
+                stagger: 0.08,
+              })
+              .from(
+                ".contact-motion .directContact > *",
+                { y: 18, autoAlpha: 0, stagger: 0.07 },
+                "<0.24",
+              );
+
+            gsap.from(".footer-motion > *", {
+              y: 18,
+              autoAlpha: 0,
+              duration: 0.55,
+              stagger: 0.08,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: ".footer-motion",
+                start: "top 96%",
+                once: true,
+              },
+            });
+
+            requestAnimationFrame(() => ScrollTrigger.refresh());
           }
-
-          gsap
-            .timeline({
-              defaults: { duration: 0.62, ease: "power3.out" },
-              scrollTrigger: {
-                trigger: ".plans-motion",
-                start: "top 68%",
-                once: true,
-              },
-            })
-            .from(".plans-motion .plan", {
-              y: 24,
-              autoAlpha: 0,
-              stagger: 0.08,
-              duration: 0.68,
-            })
-            .from(
-              ".plans-motion .plan-badge",
-              { scale: 0.86, autoAlpha: 0, duration: 0.42 },
-              "-=0.22",
-            )
-            .from(
-              ".plans-motion .featured-plan .original-price",
-              { x: 18, autoAlpha: 0, duration: 0.42 },
-              "<0.08",
-            )
-            .from(
-              ".plans-motion .plan li",
-              { x: 14, autoAlpha: 0, stagger: 0.035, duration: 0.45 },
-              "<0.04",
-            );
-
-          gsap
-            .timeline({
-              defaults: { duration: 0.68, ease: "power3.out" },
-              scrollTrigger: {
-                trigger: ".process-motion",
-                start: "top 70%",
-                once: true,
-              },
-            })
-            .from(".process-motion .processList li", {
-              xPercent: 10,
-              autoAlpha: 0,
-              stagger: 0.14,
-            });
-
-          gsap
-            .timeline({
-              defaults: { duration: 0.9, ease: "power3.out" },
-              scrollTrigger: {
-                trigger: ".roo-motion",
-                start: "top 72%",
-                once: true,
-              },
-            })
-            .fromTo(
-              ".roo-motion .rooFigure",
-              { clipPath: "inset(0 100% 0 0)", x: -80, autoAlpha: 0 },
-              { clipPath: "inset(0 0% 0 0)", x: 0, autoAlpha: 1 },
-            )
-            .fromTo(
-              ".roo-motion .rooCopy",
-              { x: 80, autoAlpha: 0 },
-              { x: 0, autoAlpha: 1 },
-              "<",
-            )
-            .fromTo(
-              ".roo-motion .rooPhoto",
-              { scale: 1.08 },
-              { scale: 1, duration: 1.05 },
-              "<",
-            );
-
-          gsap.from(".for-you-motion li", {
-            xPercent: -8,
-            autoAlpha: 0,
-            duration: 0.55,
-            stagger: 0.08,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: ".for-you-motion",
-              start: "top 72%",
-              once: true,
-            },
-          });
-
-          gsap
-            .timeline({
-              defaults: { duration: 0.6, ease: "power3.out" },
-              scrollTrigger: {
-                trigger: ".contact-motion",
-                start: "top 72%",
-                once: true,
-              },
-            })
-            .from(".contact-motion .contactForm > *", {
-              y: 24,
-              autoAlpha: 0,
-              stagger: 0.08,
-            })
-            .from(
-              ".contact-motion .directContact > *",
-              { y: 18, autoAlpha: 0, stagger: 0.07 },
-              "<0.24",
-            );
-
-          gsap.from(".footer-motion > *", {
-            y: 18,
-            autoAlpha: 0,
-            duration: 0.55,
-            stagger: 0.08,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: ".footer-motion",
-              start: "top 96%",
-              once: true,
-            },
-          });
-
-          requestAnimationFrame(() => ScrollTrigger.refresh());
         },
       );
 
@@ -816,11 +817,12 @@ export default function HomeExperience({
           <h2 id="process-heading">{text.practiceLabel}</h2>
         </div>
         <ol className={`${styles.processList} processList`}>
-          {text.process.map(([month, title, body]) => (
+          {text.process.map(([month, title, body, bodyDetail]) => (
             <li key={month}>
               <span>{month}</span>
               <h3>{title}</h3>
               <p>{body}</p>
+              <p>{bodyDetail}</p>
             </li>
           ))}
         </ol>
@@ -946,7 +948,7 @@ export default function HomeExperience({
           >
             {text.whatsapp}
           </a>
-          <a href="mailto:varelar617@gmail.com">{text.email}</a>
+          <a href="mailto:dancermethodbyroo@gmail.com">{text.email}</a>
           <a href={INSTAGRAM_LINK} target="_blank" rel="noreferrer">
             {text.instagram}
           </a>

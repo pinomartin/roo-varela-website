@@ -4,7 +4,7 @@ Last updated: 2026-09-21
 
 ## Essential
 
-- Price: USD 39/month
+- Price: USD 49/month
 - Best for: Dancers who want structure with autonomy.
 - Includes: Training method for dancers, base program for gym or home, nutrition guide for dancers, 1 Dancer Talk per month, monthly check-in.
 - Limits: Online monthly support; not a personalized weekly coaching plan.

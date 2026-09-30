@@ -64,7 +64,7 @@ _Avoid_: Mensaje enviado sin revisión
 Importe mensual mostrado en dólares estadounidenses para orientar sobre Essential y Pro; no habilita una compra en esta primera versión.
 _Avoid_: Precio en euros, checkout activo
 
-**Essential USD 39/mes**:
+**Essential USD 49/mes**:
 Precio informativo mensual de la membresía digital Essential.
 _Avoid_: USD 49/mes
 

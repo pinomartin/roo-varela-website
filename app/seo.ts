@@ -112,7 +112,7 @@ function serviceJsonLd(locale: Locale) {
             "@type": "Offer",
             name: "Essential",
             url: `${absoluteUrl(seo[locale].path)}#plans`,
-            price: "39",
+            price: "49",
             priceCurrency: "USD",
             availability: "https://schema.org/InStock",
           },

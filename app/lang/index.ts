@@ -10,11 +10,17 @@ const lang = {
       "Entrenamiento para bailarines que une dance conditioning, fuerza, nutrición y coaching para preparar tu cuerpo sin separarlo de tu danza.",
     primary: "Conoce el método",
     secondary: "Ver los planes",
-    storyTitle: "Bailar más no siempre significa entrenar mejor.",
+    storyTitle: "BAILAR TAMBIÉN ES CUIDAR TU CUERPO",
     story: [
-      "Puedes pasar horas entrenando y aun así sentir que te falta fuerza, resistencia, estabilidad o energía.",
-      "Puedes saber bailar, pero no tener claro cómo combinar gimnasio y danza, cómo ganar fuerza sin perder movilidad o qué comer antes y después de un ensayo.",
-      "Por eso creé Dancer Method: mi método de entrenamiento para bailarines, performers y artistas que necesitan preparación física adaptada a clases, castings y actuaciones.",
+      "La danza exige mucho: clases, ensayos, castings y funciones mantienen tu cuerpo siempre activo.",
+
+      "Para rendir, no alcanza con bailar muchas horas: también necesitas fuerza, recuperación y energía.",
+
+      "Cuidar tu cuerpo es cuidar tu herramienta de trabajo.",
+
+      "Por eso creé Dancer Method: un entrenamiento para bailarines, performers y artistas que entiende las exigencias reales de su profesión.",
+
+      "No se trata de entrenar más, sino mejor, para seguir haciendo lo que amas durante mucho tiempo.",
     ],
     methodTitle: "El Método",
     methodBody:
@@ -56,7 +62,7 @@ const lang = {
       ],
       [
         "Coaching para bailarines",
-        "Dancer Talks online para resolver dudas, hablar de hábitos y sostener el proceso con acompañamiento real.",
+        "Dancer Talks online para resolver dudas, hablar de hábitos y compartir experiencias reales sobre el mundo de la danza: sus exigencias, sus desafíos y todo lo que ocurre detrás del escenario.",
       ],
       [
         "Seguimiento",
@@ -71,7 +77,7 @@ const lang = {
     plans: [
       {
         name: "ESSENTIAL",
-        price: "USD 39 / mes",
+        price: "USD 49 / mes",
         role: "Dance training program",
         subtitle: "Tu base de entrenamiento para bailar.",
         body: "Para complementar tu danza con fuerza, conditioning y nutrición con estructura y autonomía.",
@@ -123,7 +129,8 @@ const lang = {
       [
         "PILAR III",
         "PERSONA",
-        "Coaching, seguimiento y hábitos para sostener tu rendimiento sin perder bienestar.",
+        "Coaching, hábitos y experiencia real para sostener tu rendimiento sin perder bienestar.",
+        "Un espacio donde comparto mi experiencia y herramientas para hacer más llevaderas las exigencias de una profesión tan hermosa como demandante.",
       ],
     ],
     rooTitle: "Soy Roo Varela, personal trainer y bailarina profesional.",
@@ -186,11 +193,17 @@ const lang = {
       "Training for dancers combining dance conditioning, strength training, nutrition, and coaching so your body supports your dance.",
     primary: "Discover the method",
     secondary: "View plans",
-    storyTitle: "Dancing more does not always mean training better.",
+    storyTitle: "Dancing is also taking care of your body.",
     story: [
-      "You can spend hours training and still feel you lack strength, endurance, stability, or energy.",
-      "You can know how to dance without knowing how to combine gym and dance, build strength without losing mobility, or eat around classes and rehearsals.",
-      "That is why I created Dancer Method: my training method for dancers, performers, and artists who need physical preparation shaped around classes, castings, and performances.",
+      "Dance demands a lot: classes, rehearsals, auditions, and shows keep your body constantly moving.",
+
+      "To perform well, dancing for hours is not enough: you also need strength, recovery, and energy.",
+
+      "Caring for your body means caring for your working tool.",
+
+      "That is why I created Dancer Method: training for dancers, performers, and artists that understands the real demands of their profession.",
+
+      "It’s not about training more, but smarter, so you can keep doing what you love for the long haul.",
     ],
     methodTitle: "The Method",
     methodBody:
@@ -233,7 +246,7 @@ const lang = {
       ],
       [
         "Dancer coaching",
-        "Online Dancer Talks to ask questions, work on habits, and sustain the process with real support.",
+        "Online Dancer Talks to answer questions, discuss habits, and share real-life experiences from the world of dance—its demands, its challenges, and everything that happens backstage.",
       ],
       [
         "Follow-up",
@@ -248,7 +261,7 @@ const lang = {
     plans: [
       {
         name: "ESSENTIAL",
-        price: "USD 39 / month",
+        price: "USD 49 / month",
         role: "Dance training program",
         subtitle: "Your training base for dance.",
         body: "For complementing your dance with strength, conditioning, and nutrition with structure and autonomy.",
@@ -300,7 +313,8 @@ const lang = {
       [
         "PILLAR 3",
         "PERSON",
-        "Coaching, follow-up, and habits to sustain performance without losing wellbeing.",
+        "Coaching, habits, and real experience to sustain your performance without losing wellbeing.",
+        "A space where I share my experience and tools to help make the demands of such a beautiful yet challenging profession more manageable.",
       ],
     ],
     rooTitle: "I am Roo Varela, personal trainer and professional dancer.",
