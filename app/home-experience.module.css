@@ -116,6 +116,14 @@
     transparent
   );
 }
+.heroOverlay {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  background: var(--paper);
+  opacity: 0;
+  pointer-events: none;
+}
 .heroGeometry {
   position: absolute;
   z-index: -1;
@@ -229,6 +237,7 @@
 .process,
 .roo,
 .forYou,
+.education,
 .contact {
   border-top: 1px solid var(--line);
   padding: clamp(5rem, 12vw, 12rem) clamp(1.25rem, 4vw, 4rem);
@@ -250,6 +259,7 @@
 .process h2,
 .roo h2,
 .forYou h2,
+.education h2,
 .contact h2 {
   max-width: 13ch;
   margin: 0;
@@ -264,6 +274,7 @@
 .plansHeading p,
 .processHeading p,
 .rooCopy p,
+.educationIntro p,
 .contactHeading p {
   max-width: 52ch;
   margin: 1.5rem 0 0;
@@ -310,18 +321,40 @@
 .methodIntro {
   position: relative;
   overflow: hidden;
+  padding-block: clamp(5rem, 9vw, 9rem);
   background: var(--surface);
 }
 .methodIntroCopy {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
-  gap: 3rem;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: clamp(3rem, 8vw, 9rem);
+  row-gap: 1.5rem;
   align-items: end;
+}
+.methodIntroCopy h2 {
+  max-width: 8ch;
+}
+.methodIntroCopy > p {
+  grid-column: 1;
+  max-width: 34ch;
+}
+.methodIntroCopy > .methodStageTitle {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  max-width: 15ch;
+  color: var(--mint);
+  font-size: clamp(2rem, 3.8vw, 4rem);
+  font-weight: 750;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
 }
 .methodIntroCopy p {
   margin: 0;
+}
+.methodTitleWord {
+  display: inline-block;
 }
 .methodStage {
   width: 100vw;
@@ -374,12 +407,14 @@
 .methodIntro .methodCommitmentNote {
   position: relative;
   z-index: 1;
-  max-width: 72ch;
+  max-width: 58ch;
   margin: clamp(3rem, 6vw, 5rem) 0 0;
-  color: var(--mint);
-  font-size: clamp(1.2rem, 2vw, 1.75rem);
-  font-weight: 820;
-  line-height: 1.25;
+  padding-top: clamp(1.5rem, 3vw, 2.5rem);
+  border-top: 1px solid var(--line);
+  color: var(--ink);
+  font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+  font-weight: 500;
+  line-height: 1.5;
 }
 .methodIntro .methodCommitmentNote > span {
   display: block;
@@ -393,7 +428,7 @@
   position: absolute;
   inset: 2rem clamp(1.25rem, 4vw, 4rem);
   pointer-events: none;
-  opacity: 0.82;
+  opacity: 0.35;
 }
 .methodConstellation span {
   position: absolute;
@@ -1105,6 +1140,7 @@
   padding: 1rem 0;
   font-size: clamp(1rem, 1.5vw, 1.2rem);
   line-height: 1.4;
+  transition: color 220ms ease, border-color 220ms ease;
 }
 .forYou li p {
   margin: 0.55rem 0 0 2rem;
@@ -1115,6 +1151,170 @@
   display: inline-block;
   margin-right: 0.8rem;
   color: var(--mint);
+  transition: transform 220ms ease;
+}
+@media (hover: hover) {
+  .forYou li:hover {
+    color: var(--mint);
+    border-color: var(--mint);
+  }
+  .forYou li:hover::before {
+    transform: translate(0.2rem, -0.2rem);
+  }
+}
+.education {
+  background: var(--paper);
+}
+.educationIntro,
+.educationTailored {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 5vw, 5rem);
+}
+.educationIntro h2 {
+  max-width: 15ch;
+}
+.educationIntro p {
+  margin-top: 0;
+}
+.educationIntro .educationFormat {
+  margin-top: 1.25rem;
+  color: var(--mint);
+  font-weight: 750;
+}
+.workshopList {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: clamp(3rem, 7vw, 7rem);
+  margin-bottom: clamp(3rem, 7vw, 7rem);
+}
+@media (min-width: 700px) {
+  .workshopList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1100px) {
+  .workshopList {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.workshop {
+  min-width: 0;
+  align-self: start;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--ink) 4%, var(--paper));
+}
+.workshop summary {
+  display: flex;
+  min-height: 12rem;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: clamp(1.5rem, 2.5vw, 2rem);
+  cursor: pointer;
+  list-style: none;
+}
+@media (min-width: 700px) {
+  .workshop summary {
+    min-height: 18rem;
+  }
+}
+.workshop summary::-webkit-details-marker {
+  display: none;
+}
+.workshop summary:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: -4px;
+}
+.workshop[open] {
+  border-color: var(--mint);
+}
+.workshopPreview {
+  display: grid;
+  gap: 1rem;
+}
+.workshopAction {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--ink);
+  font-size: 0.85rem;
+  font-weight: 750;
+}
+.workshopPlus {
+  position: relative;
+  width: 1.5rem;
+  height: 1.5rem;
+  flex: none;
+  border: 1px solid var(--mint);
+  border-radius: 50%;
+}
+.workshopPlus::before,
+.workshopPlus::after {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 0.65rem;
+  height: 1px;
+  background: var(--mint);
+  content: "";
+  transform: translate(-50%, -50%);
+}
+.workshopPlus::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+.workshop[open] .workshopPlus::after {
+  display: none;
+}
+.workshopRegion {
+  min-width: 0;
+}
+.workshopBody {
+  display: grid;
+  gap: 1.25rem;
+  padding: 0 clamp(1.5rem, 2.5vw, 2rem) clamp(1.5rem, 2.5vw, 2rem);
+}
+.workshop h3 {
+  margin: 0;
+  color: var(--mint);
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  line-height: 1.1;
+  text-wrap: balance;
+}
+.educationTailored h3 {
+  margin: 0;
+  font-size: clamp(1.6rem, 3vw, 2.8rem);
+  line-height: 1.05;
+  text-wrap: balance;
+}
+.workshop p,
+.educationTailored p {
+  max-width: 60ch;
+  margin: 0;
+  line-height: 1.5;
+}
+.workshop .workshopAudience {
+  color: color-mix(in srgb, var(--ink) 78%, var(--paper));
+  font-size: 0.9rem;
+}
+.workshop .workshopDetails {
+  margin-top: auto;
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+  color: var(--mint);
+  font-size: 0.9rem;
+  font-weight: 750;
+}
+.educationTailored {
+  border-top: 1px solid var(--line);
+  padding-top: clamp(2rem, 5vw, 4rem);
+}
+.educationTailored h3 {
+  color: var(--mint);
+}
+.educationTailored .primaryAction {
+  margin-top: 1.5rem;
 }
 .contact {
   display: grid;
@@ -1221,7 +1421,14 @@
   color: inherit;
   font-weight: 750;
   text-decoration-color: var(--mint);
+  text-decoration-thickness: 2px;
   text-underline-offset: 0.3em;
+  transition: color 200ms ease, text-underline-offset 200ms ease;
+}
+.directContact a:hover,
+.directContact a:focus-visible {
+  color: var(--mint);
+  text-underline-offset: 0.5em;
 }
 .footer {
   display: flex;
@@ -1241,7 +1448,14 @@
   outline-offset: 4px;
 }
 @media (max-width: 1023px) {
+  .header {
+    grid-template-columns: 1fr auto auto;
+    gap: 1rem;
+  }
   .navigation {
+    display: flex;
+  }
+  .navigation a:not(.educationLink) {
     display: none;
   }
   .hero {
@@ -1257,6 +1471,8 @@
   .process,
   .roo,
   .forYou,
+  .educationIntro,
+  .educationTailored,
   .contact {
     grid-template-columns: 1fr;
   }
@@ -1274,6 +1490,9 @@
   .methodIntroCopy,
   .plansHeading {
     gap: 1.5rem;
+  }
+  .methodIntroCopy {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .signal {
     width: min(34rem, 94vw);
@@ -1448,6 +1667,16 @@
   .heroFooter {
     gap: 1.5rem;
   }
+  .methodIntroCopy {
+    grid-template-columns: 1fr;
+  }
+  .methodIntroCopy h2 {
+    grid-column: auto;
+  }
+  .methodIntroCopy > .methodStageTitle {
+    grid-column: auto;
+    grid-row: auto;
+  }
   .storyCopy h2,
   .methodIntro h2,
   .includes h2,
@@ -1455,6 +1684,7 @@
   .process h2,
   .roo h2,
   .forYou h2,
+  .education h2,
   .contact h2 {
     max-width: 100%;
     font-size: clamp(2.35rem, 11vw, 3.8rem);
@@ -1540,6 +1770,7 @@
   .process,
   .roo,
   .forYou,
+  .education,
   .contact {
     padding-block: 4.5rem;
   }
@@ -1554,11 +1785,17 @@
   .planPrimaryAction,
   .bundleAction,
   .languageButton,
+  .directContact a,
+  .forYou li,
+  .forYou li::before,
   .plan li,
   .plan li::before {
     transition: none;
   }
   .plan li:hover {
+    transform: none;
+  }
+  .forYou li:hover::before {
     transform: none;
   }
 }

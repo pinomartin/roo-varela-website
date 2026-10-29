@@ -1,6 +1,6 @@
 const lang = {
   es: {
-    nav: ["Método", "Planes", "Sobre Roo", "Contacto"],
+    nav: ["Método", "Planes", "Sobre Roo", "Contacto", "Talleres"],
     navigationLabel: "Navegación principal",
     practiceLabel: "Los pilares de Dancer Method",
     skip: "Saltar al contenido",
@@ -26,8 +26,7 @@ const lang = {
     methodBody:
       "Fuerza, nutrición y coaching para un cuerpo más preparado y consciente.",
     methodStageLabel: "Cómo funciona Dancer Method",
-    methodCommitmentTitle:
-      "Tres meses para conocer tu cuerpo, adaptarlo y crear continuidad.",
+    methodCommitmentTitle: "Un proceso que evoluciona con vos.",
     methodSteps: [
       {
         number: "MES 1",
@@ -149,6 +148,22 @@ const lang = {
       "Coaching para bailarines y acompañamiento para sostener hábitos.",
       "Cuidar el cuerpo del bailarín más allá de la estética.",
     ],
+    education: {
+      title: "Talleres presenciales para bailarines y organizaciones",
+      intro: "Dancer Method Education ofrece formación especializada para academias, escuelas de danza, compañías y organizaciones que quieren preparar a sus bailarines dentro y fuera del escenario.",
+      format: "Formaciones presenciales · Teoría y práctica · Adaptadas a cada grupo",
+      workshops: [
+        { title: "Preparación física para bailarines", description: "Preparación física específica para bailarines: fuerza, resistencia, potencia, estabilidad y control corporal, con herramientas prácticas para complementar la formación en danza.", details: "2 h 30 min · Teórico-práctico · Aforo recomendado: hasta 20 participantes", audience: "Ideal para academias, conservatorios y bailarines en formación o profesionales." },
+        { title: "Alimenta tu danza", description: "Una formación educativa sobre alimentación, energía, organización de comidas, hidratación y recuperación, y su relación con el rendimiento y bienestar del bailarín.", details: "2 horas · Taller educativo · Aforo recomendado: hasta 25 participantes", audience: "Ideal para escuelas de danza, programas de formación profesional y compañías." },
+        { title: "El bailarín detrás del artista", description: "Un espacio participativo para reflexionar sobre el rechazo, las audiciones, la comparación, las expectativas y la presión de la industria, con foco en el autocuidado y el recorrido profesional.", details: "2 horas · Reflexión y participación voluntaria · Aforo recomendado: hasta 25 participantes", audience: "Ideal para jóvenes bailarines, estudiantes avanzados y artistas que se preparan para la industria." },
+        { title: "Herramientas para el bailarín profesional", description: "Herramientas prácticas para preparar audiciones, materiales profesionales y castings, organizar oportunidades y desarrollar hábitos de trabajo para el entorno profesional.", details: "2 horas · Ejercicios prácticos · Aforo recomendado: hasta 25 participantes", audience: "Ideal para conservatorios, escuelas profesionales y programas de transición al mercado laboral artístico." },
+        { title: "El camino del artista", description: "Experiencias reales, dinámicas participativas y herramientas de reflexión para explorar las oportunidades, cambios de país, distancia, vínculos, familia y decisiones que pueden acompañar una carrera artística.", details: "", audience: "Ideal para artistas jóvenes, bailarines en transición y quienes combinan carrera y responsabilidades personales o familiares." },
+      ],
+      tailoredTitle: "Formación a medida para tu organización",
+      tailoredBody: "Adaptamos el contenido, la duración y el enfoque al nivel de los participantes, su etapa formativa y los objetivos de academias, conservatorios, compañías, producciones escénicas y organizaciones interesadas en movimiento, bienestar y hábitos saludables.",
+      cta: "Consultar talleres por WhatsApp",
+      message: "Hola, me gustaría recibir información sobre los talleres presenciales de Dancer Method Education para mi organización y consultar las opciones de formación a medida.",
+    },
     contactTitle: "Entrena con Roo Varela.",
     contactIntro:
       "Completa estos tres datos y prepararé un mensaje para WhatsApp. No se envía nada todavía: lo revisarás antes de mandarlo.",
@@ -164,7 +179,7 @@ const lang = {
       pro: "Pro — seguimiento personalizado",
       undecided: "Aún no lo sé — quiero orientación",
     },
-    submit: "Preparar mi mensaje para Roo",
+    submit: "Enviar mi mensaje para Roo",
     formHint:
       "Se abrirá WhatsApp con tu mensaje listo. Tú decides si lo envías.",
     formStatus: "WhatsApp se abrió con tu mensaje listo para revisar.",
@@ -183,7 +198,7 @@ const lang = {
       `Hola, soy ${name}.\nMi objetivo principal es: ${goal}.\nMe interesa: ${interest}.\nMe gustaría recibir más información sobre Dancer Method.`,
   },
   en: {
-    nav: ["Method", "Plans", "About Roo", "Contact"],
+    nav: ["Method", "Plans", "About Roo", "Contact", "Workshops"],
     navigationLabel: "Primary navigation",
     practiceLabel: "Dancer Method pillars",
     skip: "Skip to content",
@@ -209,8 +224,7 @@ const lang = {
     methodBody:
       "Strength, nutrition, and coaching for a better-prepared, more aware body.",
     methodStageLabel: "How Dancer Method works",
-    methodCommitmentTitle:
-      "Three months to understand your body, adapt it, and build continuity.",
+    methodCommitmentTitle: "A process that evolves with you.",
     methodSteps: [
       {
         number: "MONTH 1",
@@ -333,6 +347,22 @@ const lang = {
       "Dancer coaching and support to sustain habits.",
       "To care for the dancer's body beyond aesthetics.",
     ],
+    education: {
+      title: "In-person workshops for dancers and organizations",
+      intro: "Dancer Method Education offers specialized training for academies, dance schools, companies, and organizations looking to prepare dancers on and off the stage.",
+      format: "In-person training · Theory and practice · Adapted to each group",
+      workshops: [
+        { title: "Dancer Conditioning", description: "Dance-specific physical preparation covering strength, endurance, power, stability, and body control, with practical tools to complement dance training.", details: "2 hr 30 min · Theory and practice · Recommended: up to 20 participants", audience: "Ideal for academies, conservatories, and dancers in training or working professionally." },
+        { title: "Fuel Your Dance", description: "An educational workshop on food, energy, meal planning, hydration, and recovery, and how nutrition habits relate to dancers’ performance and wellbeing.", details: "2 hours · Educational workshop · Recommended: up to 25 participants", audience: "Ideal for dance schools, professional training programs, and companies." },
+        { title: "The Dancer Behind the Artist", description: "A participatory space to reflect on rejection, auditions, comparison, expectations, and industry pressure, focusing on self-care and each dancer’s professional journey.", details: "2 hours · Reflection and voluntary participation · Recommended: up to 25 participants", audience: "Ideal for young dancers, advanced students, and artists preparing to enter the industry." },
+        { title: "The Professional Dancer Toolkit", description: "Practical tools for preparing auditions, professional materials, and castings, organizing opportunities, and developing work habits for the professional environment.", details: "2 hours · Practical exercises · Recommended: up to 25 participants", audience: "Ideal for conservatories, professional schools, and arts career transition programs." },
+        { title: "The Artist’s Journey", description: "Real experiences, participatory activities, and reflection tools to explore opportunities, moving countries, distance, relationships, family, and the decisions that can accompany an artistic career.", details: "", audience: "Ideal for young artists, dancers in transition, and those balancing a career with personal or family responsibilities." },
+      ],
+      tailoredTitle: "Tailored training for your organization",
+      tailoredBody: "We adapt content, duration, and approach to participants’ level and stage of training, and to the goals of academies, conservatories, companies, stage productions, and organizations interested in movement, wellbeing, and healthy habits.",
+      cta: "Ask about workshops on WhatsApp",
+      message: "Hi, I would like information about Dancer Method Education's in-person workshops for my organization and the options for tailored training.",
+    },
     contactTitle: "Train with Roo Varela.",
     contactIntro:
       "Complete these three details and I will prepare a WhatsApp message. Nothing is sent yet: you will review it before sending.",
@@ -348,7 +378,7 @@ const lang = {
       pro: "Pro — personalized follow-up",
       undecided: "I am not sure yet — I want guidance",
     },
-    submit: "Prepare my message for Roo",
+    submit: "Send my message to Roo",
     formHint:
       "WhatsApp will open with your message ready. You decide if you send it.",
     formStatus: "WhatsApp opened with your message ready to review.",

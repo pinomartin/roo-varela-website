@@ -24,6 +24,95 @@ const pillarImages = [
   "/img/espalda.png",
 ] as const;
 
+function WorkshopCard({ workshop, language }: {
+  workshop: (typeof lang)[Language]["education"]["workshops"][number];
+  language: Language;
+}) {
+  const card = useRef<HTMLDetailsElement>(null);
+  const pinned = useRef(false);
+  const dismissed = useRef(false);
+  const expanded = useRef(false);
+  const { contextSafe } = useGSAP({ scope: card });
+
+  const setExpanded = (element: HTMLDetailsElement, open: boolean) => contextSafe(() => {
+    if (expanded.current === open) return;
+    expanded.current = open;
+    const region = element.querySelector<HTMLElement>(`.${styles.workshopRegion}`);
+    const summary = element.querySelector("summary");
+    if (!region || !summary) return;
+
+    gsap.killTweensOf(region);
+    summary.setAttribute("aria-expanded", String(open));
+    region.inert = !open;
+    const wasOpen = element.open;
+
+    const finish = () => {
+      if (!open) element.open = false;
+      gsap.set(region, { clearProps: "height,opacity,overflow" });
+      summary.removeAttribute("aria-expanded");
+    };
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      if (open) element.open = true;
+      finish();
+      return;
+    }
+    element.open = true;
+    if (!wasOpen) gsap.set(region, { height: 0, opacity: 0 });
+    gsap.set(region, { overflow: "hidden" });
+    gsap.to(region, {
+      height: open ? "auto" : 0,
+      opacity: open ? 1 : 0,
+      duration: open ? 0.45 : 0.3,
+      ease: open ? "power3.out" : "power2.inOut",
+      onComplete: finish,
+    });
+  })();
+
+  return (
+    <details ref={card} className={styles.workshop}
+      onPointerEnter={(event) => {
+        if (event.pointerType === "mouse" && !dismissed.current) setExpanded(event.currentTarget, true);
+      }}
+      onPointerLeave={(event) => {
+        if (event.pointerType !== "mouse") return;
+        dismissed.current = false;
+        if (!pinned.current && !event.currentTarget.contains(document.activeElement)) setExpanded(event.currentTarget, false);
+      }}
+      onBlur={(event) => {
+        if (!pinned.current && !event.currentTarget.matches(":hover") && !event.currentTarget.contains(event.relatedTarget)) setExpanded(event.currentTarget, false);
+      }}
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && event.currentTarget.open) {
+          event.preventDefault();
+          pinned.current = false;
+          dismissed.current = true;
+          event.currentTarget.querySelector("summary")?.focus();
+          setExpanded(event.currentTarget, false);
+        }
+      }}>
+      <summary onClick={(event) => {
+        event.preventDefault();
+        pinned.current = !pinned.current;
+        dismissed.current = !pinned.current;
+        if (card.current) setExpanded(card.current, pinned.current);
+      }}>
+        <div className={styles.workshopPreview}>
+          <h3>{workshop.title}</h3>
+          <p className={styles.workshopAudience}>{workshop.audience}</p>
+        </div>
+        <span className={styles.workshopAction}>{language === "es" ? "Ver taller" : "Explore workshop"}<span aria-hidden="true" className={styles.workshopPlus} /></span>
+      </summary>
+      <div className={styles.workshopRegion}>
+        <div className={styles.workshopBody}>
+          <p>{workshop.description}</p>
+          {workshop.details && <p className={styles.workshopDetails}>{workshop.details}</p>}
+        </div>
+      </div>
+    </details>
+  );
+}
+
 export default function HomeExperience({
   initialLanguage = "es",
 }: HomeExperienceProps) {
@@ -39,6 +128,22 @@ export default function HomeExperience({
   useGSAP(
     () => {
       const media = gsap.matchMedia();
+
+      media.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.from(".method-title-word", {
+          y: 24,
+          autoAlpha: 0,
+          stagger: 0.15,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".method-title-reveal",
+            start: "top 85%",
+            end: "top 25%",
+            scrub: 0.8,
+          },
+        });
+
+      }, root);
 
       media.add(
         {
@@ -197,6 +302,28 @@ export default function HomeExperience({
                     .to({}, { duration: 0.45 });
 
                   scenes.forEach((scene, index) => {
+                    gsap
+                      .timeline({
+                        defaults: { duration: 0.8, ease: "power3.out" },
+                        scrollTrigger: index === 0
+                          ? { trigger: stage, start: "top 80%", once: true }
+                          : {
+                              trigger: scene,
+                              containerAnimation: horizontalTween,
+                              start: "left 75%",
+                              once: true,
+                            },
+                      })
+                      .from(scene.querySelector(".scene-index"), {
+                        y: 45,
+                        autoAlpha: 0,
+                      })
+                      .from(scene.querySelector(".scene-copy"), {
+                        y: 48,
+                        autoAlpha: 0,
+                        clipPath: "inset(0 0 100% 0)",
+                      }, "<0.15");
+
                     gsap.from(scene.querySelector(".scene-image-frame"), {
                       scale: 0.78,
                       rotation: index % 2 === 0 ? -8 : 8,
@@ -374,19 +501,6 @@ export default function HomeExperience({
                 "<",
               );
 
-            gsap.from(".for-you-motion li", {
-              xPercent: -8,
-              autoAlpha: 0,
-              duration: 0.55,
-              stagger: 0.08,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: ".for-you-motion",
-                start: "top 72%",
-                once: true,
-              },
-            });
-
             gsap
               .timeline({
                 defaults: { duration: 0.6, ease: "power3.out" },
@@ -424,6 +538,64 @@ export default function HomeExperience({
           }
         },
       );
+
+      media.add("(max-width: 1023px) and (prefers-reduced-motion: no-preference)", () => {
+        gsap.utils.toArray<HTMLElement>(".horizontal-stage .scene").forEach((scene) => {
+          const image = scene.querySelector(".scene-image-frame");
+          const copy = scene.querySelector(".scene-copy");
+          gsap.from(image, {
+            scale: 0.88,
+            rotation: -6,
+            autoAlpha: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: { trigger: image, start: "top 85%", once: true },
+          });
+          gsap.from(copy, {
+            y: 32,
+            autoAlpha: 0,
+            clipPath: "inset(0 0 100% 0)",
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: { trigger: copy, start: "top 90%", once: true },
+          });
+        });
+      });
+
+      media.add("(prefers-reduced-motion: no-preference)", () => {
+        root.current?.querySelectorAll<HTMLElement>(`.${styles.workshop}`).forEach((card) => {
+          gsap.from(card, {
+            y: 48,
+            scale: 0.65,
+            opacity: 0.2,
+            duration: 1,
+            ease: "power1.out",
+            scrollTrigger: { trigger: card, start: "top 80%", once: true },
+          });
+        });
+
+        gsap.utils.toArray<HTMLElement>(".for-you-motion li").forEach((item) => {
+          gsap.from(item, {
+            x: -24,
+            autoAlpha: 0,
+            duration: 0.65,
+            ease: "power3.out",
+            scrollTrigger: { trigger: item, start: "top 90%", once: true },
+          });
+        });
+
+        gsap.to(".hero-overlay", {
+          opacity: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: "#top",
+            start: "top top",
+            endTrigger: "#main-content",
+            end: "top top",
+            scrub: 0.4,
+          },
+        });
+      });
 
       return () => media.revert();
     },
@@ -483,6 +655,7 @@ export default function HomeExperience({
           <a href="#method">{text.nav[0]}</a>
           <a href="#plans">{text.nav[1]}</a>
           <a href="#roo">{text.nav[2]}</a>
+          <a className={styles.educationLink} href="#education">{text.nav[4]}</a>
           <a href="#contact">{text.nav[3]}</a>
         </nav>
         <a
@@ -495,6 +668,7 @@ export default function HomeExperience({
       </header>
 
       <section id="top" className={styles.hero} aria-labelledby="hero-heading">
+        <div className={`${styles.heroOverlay} hero-overlay`} aria-hidden="true" />
         <div className={styles.heroGrid} aria-hidden="true" />
         <div className={styles.heroGeometry} aria-hidden="true">
           <div className={`${styles.orbit} hero-orbit`}>
@@ -502,7 +676,7 @@ export default function HomeExperience({
               src="/img/pose_rosa.png"
               alt=""
               fill
-              priority
+              preload
               sizes="(max-width: 1023px) 85vw, 58vw"
             />
           </div>
@@ -595,41 +769,12 @@ export default function HomeExperience({
         <div className={`${styles.methodIntroCopy} reveal`}>
           <h2 id="method-heading">{text.methodTitle}</h2>
           <p className="method-intro-body">{text.methodBody}</p>
-          <p className={styles.methodStageTitle}>
-            {text.methodCommitmentTitle}
+          <p className={`${styles.methodStageTitle} method-title-reveal`} aria-label={text.methodCommitmentTitle}>
+            {text.methodCommitmentTitle.split(" ").map((word, index) => (
+              <span key={`${word}-${index}`} aria-hidden="true"><span className={styles.methodTitleWord + " method-title-word"}>{word}</span>{" "}</span>
+            ))}
           </p>
         </div>
-        {/* <section
-          className={`${styles.horizontalStage} ${styles.methodStage} horizontal-stage method-stage`}
-          aria-label={text.methodStageLabel}
-        >
-          <div
-            className={`${styles.horizontalTrack} ${styles.methodTrack} horizontal-track`}
-          >
-            {text.methodSteps.map((step, index) => (
-              <article
-                className={`${styles.scene} ${styles.methodScene} scene method-scene`}
-                key={step.title}
-              >
-                <span className={styles.sceneIndex}>{step.number}</span>
-                <div className={styles.sceneGraphic} aria-hidden="true">
-                  <div
-                    className={`${styles.sceneImageFrame} ${styles[`imageFrame${(index % pillarImages.length) + 1}`]} scene-image-frame`}
-                  >
-                    <Image
-                      className="scene-photo"
-                      src={pillarImages[index % pillarImages.length]}
-                      alt=""
-                      fill
-                      sizes="(max-width: 1023px) 70vw, 38vw"
-                    />
-                  </div>
-                </div>
-
-              </article>
-            ))}
-          </div>
-        </section> */}
         <p
           className={`${styles.methodCommitmentNote} method-commitment-note`}
           aria-label={text.methodCommitmentNote}
@@ -651,7 +796,7 @@ export default function HomeExperience({
         <div className={`${styles.horizontalTrack} horizontal-track`}>
           {text.methodSteps.map((pillar, index) => (
             <article className={`${styles.scene} scene`} key={pillar.title}>
-              <span className={styles.sceneIndex}>{pillar.number}</span>
+              <span className={`${styles.sceneIndex} scene-index`}>{pillar.number}</span>
               <div className={styles.sceneGraphic} aria-hidden="true">
                 <div
                   className={`${styles.sceneImageFrame} ${styles[`imageFrame${index + 1}`]} scene-image-frame`}
@@ -665,7 +810,7 @@ export default function HomeExperience({
                   />
                 </div>
               </div>
-              <div className={styles.sceneCopy}>
+              <div className={`${styles.sceneCopy} scene-copy`}>
                 <h2>{pillar.title}</h2>
                 <p className={styles.sceneDetail}>{pillar.detail}</p>
               </div>
@@ -823,8 +968,8 @@ export default function HomeExperience({
               src="/img/pensativa.webp"
               alt=""
               fill
-              onLoad={() => ScrollTrigger.refresh()}
               sizes="(max-width: 1023px) 86vw, 34vw"
+              loading="eager"
             />
           </div>
         </div>
@@ -851,6 +996,30 @@ export default function HomeExperience({
         </ul>
       </section>
 
+      <section id="education" className={styles.education} aria-labelledby="education-heading">
+        <div className={styles.educationIntro}>
+          <h2 id="education-heading">{text.education.title}</h2>
+          <div>
+            <p>{text.education.intro}</p>
+            <p className={styles.educationFormat}>{text.education.format}</p>
+          </div>
+        </div>
+        <div className={styles.workshopList}>
+          {text.education.workshops.map((workshop) => (
+            <WorkshopCard key={workshop.title} workshop={workshop} language={language} />
+          ))}
+        </div>
+        <div className={styles.educationTailored}>
+          <h3>{text.education.tailoredTitle}</h3>
+          <div>
+            <p>{text.education.tailoredBody}</p>
+            <a className={styles.primaryAction} href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text.education.message)}`} target="_blank" rel="noreferrer">
+              {text.education.cta}<span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
       <section
         id="contact"
         className={`${styles.contact} contact-motion`}
@@ -864,7 +1033,6 @@ export default function HomeExperience({
               src="/img/bailarina_sentada.png"
               alt=""
               fill
-              onLoad={() => ScrollTrigger.refresh()}
               sizes="(max-width: 1023px) 86vw, 28rem"
             />
           </div>

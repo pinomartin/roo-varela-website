@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { lang } from "./lang";
 
 type Locale = "es" | "en";
 
@@ -9,16 +10,16 @@ const locales = ["es", "en"] as const;
 
 const seo = {
   es: {
-    title: "Roo Varela | Dancer Method para bailarines",
+    title: "Roo Varela | Entrenamiento y talleres para bailarines",
     description:
-      "Entrenamiento para bailarines, fuerza, nutrición y coaching online con Roo Varela, personal trainer y bailarina profesional.",
+      "Entrenamiento, nutrición y coaching online para bailarines, y talleres presenciales para escuelas y compañías con Roo Varela.",
     path: "/es",
     ogLocale: "es_ES",
   },
   en: {
-    title: "Roo Varela | Dancer Method for dancers",
+    title: "Roo Varela | Training and workshops for dancers",
     description:
-      "Dance conditioning, strength training, nutrition, and online coaching by Roo Varela, personal trainer and professional dancer.",
+      "Online training, nutrition, and coaching for dancers, plus in-person workshops for schools and companies with Roo Varela.",
     path: "/en",
     ogLocale: "en_US",
   },
@@ -94,7 +95,9 @@ function serviceJsonLd(locale: Locale) {
         "@type": "Service",
         "@id": `${absoluteUrl(seo[locale].path)}#service`,
         name: "Dancer Method",
-        description: seo[locale].description,
+        description: isSpanish
+          ? "Entrenamiento, nutrición y coaching online para bailarines con Roo Varela."
+          : "Online training, nutrition, and coaching for dancers with Roo Varela.",
         url: absoluteUrl(seo[locale].path),
         provider: { "@id": `${absoluteUrl("/#roo")}` },
         serviceType: isSpanish
@@ -133,6 +136,27 @@ function serviceJsonLd(locale: Locale) {
             availability: "https://schema.org/InStock",
           },
         ],
+      },
+      {
+        "@type": "Service",
+        "@id": `${absoluteUrl(seo[locale].path)}#education`,
+        name: "Dancer Method Education",
+        description: lang[locale].education.intro,
+        url: `${absoluteUrl(seo[locale].path)}#education`,
+        provider: { "@id": `${absoluteUrl("/#roo")}` },
+        serviceType: lang[locale].education.title,
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: lang[locale].education.title,
+          itemListElement: lang[locale].education.workshops.map((workshop) => ({
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: workshop.title,
+              description: workshop.description,
+            },
+          })),
+        },
       },
     ],
   };

@@ -2,12 +2,13 @@ import type { MetadataRoute } from "next";
 import { absoluteUrl, locales, seo } from "./seo";
 
 const lastModified = new Date("2026-09-21");
+const homeLastModified = new Date("2026-10-29");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...locales.map((locale) => ({
       url: absoluteUrl(seo[locale].path),
-      lastModified,
+      lastModified: homeLastModified,
       changeFrequency: "monthly" as const,
       priority: locale === "es" ? 1 : 0.9,
       alternates: {

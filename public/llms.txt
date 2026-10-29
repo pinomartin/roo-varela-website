@@ -11,12 +11,15 @@ Important context for agents:
 - Audience: amateur, semi-professional, and professional dancers.
 - Main intents: dance training, dancer conditioning, strength training for dancers, personal training for dancers, nutrition for dancers, online training for dancers, and dancer coaching.
 - Method: training, food guidance, online Dancer Talks, and follow-up, usually starting with a three-month process.
+- Dancer Method Education: in-person workshops and tailored training for dance schools, academies, companies, and other organizations. Topics include dancer conditioning, nutrition, the professional dancer's experience, career tools, and the artist's journey.
 - Scope: Dancer Method provides educational training and food guidance. It is not clinical care, therapy, medical treatment, or injury prevention advice.
 
 ## Primary Pages
 
 - [Spanish homepage](https://roodancermethod.com/es): Main Spanish landing page for Roo Varela and Dancer Method.
 - [English homepage](https://roodancermethod.com/en): Main English landing page for Roo Varela and Dancer Method.
+- [Talleres presenciales](https://roodancermethod.com/es#education): Talleres para bailarines y organizaciones, con consulta por WhatsApp.
+- [In-person workshops](https://roodancermethod.com/en#education): Workshops for dancers and organizations, with inquiries via WhatsApp.
 
 ## Agent-Readable Files
 
