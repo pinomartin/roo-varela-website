@@ -67,6 +67,11 @@
   color: inherit;
   text-decoration: none;
 }
+.navigation .educationLink,
+.navigation .educationLink:hover {
+  color: var(--mint);
+  text-decoration: none;
+}
 .navigation a:hover,
 .footer a:hover {
   text-decoration: underline;
@@ -135,9 +140,20 @@
 }
 .orbit {
   position: absolute;
+  z-index: 1;
   inset: 12%;
   color: var(--violet);
   will-change: transform;
+}
+.heroTriangles {
+  position: absolute;
+  inset: 6%;
+  width: 88%;
+  height: 88%;
+  color: var(--violet);
+  stroke: currentColor;
+  stroke-width: 0.3;
+  pointer-events: none;
 }
 .orbit img {
   width: 100%;
@@ -195,7 +211,7 @@
 .heroActions {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: 0.75rem;
 }
 .primaryAction,
@@ -212,6 +228,7 @@
   font-weight: 850;
   padding: 0.75rem 1.2rem;
   text-decoration: none;
+  text-transform: uppercase;
   transition:
     transform 180ms ease,
     background-color 180ms ease,
@@ -1260,6 +1277,171 @@
     transition: none;
   }
 }
+
+/* The story reads as a sequence of printed spreads; motion only turns the pages. */
+.page {
+  --mint: #f8bdd5;
+  --violet: #9c356d;
+  --line: rgba(244, 231, 234, 0.24);
+}
+.hero {
+  background: #321522;
+}
+.heroGrid {
+  background: none;
+  border: 1px solid rgba(248, 189, 213, 0.28);
+  inset: 1.5rem;
+  mask-image: none;
+}
+.storyCopy h2,
+.methodIntro h2,
+.plans h2,
+.roo h2,
+.forYou h2,
+.education h2,
+.contact h2 {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+}
+.heroTitle {
+  font-family: var(--font-sans);
+  font-weight: 900;
+  font-size: clamp(4rem, 7.5vw, 8rem);
+  line-height: 0.88;
+}
+.heroSignature {
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 0.3em;
+  letter-spacing: 0.04em;
+  margin-top: 1.5rem;
+}
+.story {
+  background: #f0d9dc;
+  color: #321522;
+}
+.storyCopy { width: auto; }
+.storyCopy h2 { max-width: 11ch; }
+.storyFigure img { filter: none; }
+.bookStage {
+  position: relative;
+  overflow: clip;
+  background: #edc5d1;
+  color: #321522;
+}
+.bookTrack { display: block; }
+.bookPage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-width: 0;
+  background: #edc5d1;
+  border-bottom: 1px solid rgba(50, 21, 34, 0.25);
+}
+.bookPage:nth-child(2) { background: #c76488; color: #240d18; }
+.bookPage:nth-child(3) { background: #f4e4e0; }
+.bookPageCopy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: clamp(2rem, 6vw, 7rem);
+}
+.bookFolio {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+.bookPage h2,
+.includesCover h2,
+.includePage h3 {
+  margin: 2rem 0 1.5rem;
+  font-family: Georgia, serif;
+  font-size: clamp(3rem, 6vw, 6rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  overflow-wrap: anywhere;
+}
+.bookPage h2,
+.includesCover h2 {
+  font-family: var(--font-sans);
+}
+.bookPage p,
+.includePage p {
+  max-width: 38ch;
+  margin: 0;
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  line-height: 1.55;
+}
+.bookPhoto { position: relative; min-height: 32rem; overflow: hidden; }
+.bookPhoto img { object-fit: cover; }
+.methodIntro { background: #381626; }
+.methodConstellation { opacity: 0.18; }
+.includes.bookStage { display: block; padding: 0; background: #f1dbd9; }
+.includes .includeList { gap: 0; margin: 0; }
+.includesCover,
+.includes .includePage {
+  position: relative;
+  top: auto;
+  display: flex;
+  min-height: 30rem;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  padding: clamp(2rem, 6vw, 7rem);
+  border: 0;
+  border-right: 1px solid rgba(50, 21, 34, 0.25);
+  border-radius: 0;
+  background: #f1dbd9;
+  box-shadow: none;
+  color: #321522;
+}
+.includesCover { background: #9c356d; color: #fff4f5; }
+.includesCover h2 { position: static; max-width: 10ch; }
+.includes .includePage:nth-child(odd) { background: #e9b4c5; }
+.includes .includePage h3 { max-width: 11ch; font-size: clamp(2.8rem, 5vw, 5rem); line-height: 1; }
+.includes .includePage p { align-self: flex-start; }
+.plans { background: #211019; }
+.plans::before { display: none; }
+.plan, .featuredPlan, .contactForm, .workshop { box-shadow: none; }
+.featuredPlan { background: #52243b; }
+.roo { background: #e4a5bc; color: #321522; }
+.rooCopy strong { color: #61203f; }
+.rooFigure img { filter: none; }
+.forYou { background: #321522; }
+.education { background: #f0d9dc; color: #321522; --ink: #321522; --line: rgba(50, 21, 34, 0.25); --mint: #79234f; }
+.workshop { background: #f8e9e8; }
+.workshopCover { background: #321522; }
+.contact { background: #321522; }
+.footer { background: #1b0d14; }
+
+@media (min-width: 1024px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
+  .bookStage[data-book-active] .bookTrack { display: flex; width: max-content; }
+  .bookStage[data-book-active] .bookPage { width: 100vw; min-height: 100svh; flex: none; }
+  .bookStage[data-book-active] .bookPhoto { min-height: 100svh; }
+  .includes[data-book-active] .includeList { display: flex; width: max-content; }
+  .includes[data-book-active] .includesCover, .includes[data-book-active] .includePage { width: 70vw; min-height: 100svh; flex: none; }
+  .includes[data-book-active] .includesCover { width: 100vw; }
+}
+@media (max-width: 1023px) {
+  .navigation { flex-wrap: wrap; justify-content: center; gap: 0.5rem 1rem; }
+  .navigation a:not(.educationLink) { display: inline; }
+  .header { position: relative; top: auto; background: #321522; padding-block: 1rem; }
+  .bookPage { grid-template-columns: 1fr; }
+  .bookPhoto { min-height: 0; aspect-ratio: 4 / 3; }
+  .includesCover, .includes .includePage { min-height: 0; padding-block: 4rem; }
+}
+@media (max-width: 640px) {
+  .header { grid-template-columns: 1fr auto; }
+  .navigation { grid-column: 1 / -1; grid-row: 2; justify-content: flex-start; }
+  .hero { padding-top: 4rem; }
+  .heroTitle { font-size: clamp(3rem, 12vw, 5rem); }
+  .storyCopy { width: 100%; }
+  .bookPage h2, .includesCover h2, .includes .includePage h3 { font-size: clamp(2.7rem, 11vw, 4rem); }
+}
 .workshopPlus {
   position: relative;
   width: 1.5rem;
@@ -1365,6 +1547,7 @@
 }
 .fieldGroup span {
   color: var(--mint);
+  font-family: Georgia, serif;
   font-size: 0.72rem;
   font-weight: 850;
   letter-spacing: 0.08em;
@@ -1805,4 +1988,481 @@
   .forYou li:hover::before {
     transform: none;
   }
+}
+
+/* Keep navigation available on smaller screens and the workshop pages legible. */
+.education .workshop { background: #f8e9e8; }
+@media (max-width: 1023px) {
+  .header { position: relative; top: auto; }
+  .navigation a:not(.educationLink) { display: inline; }
+}
+@media (max-width: 640px) {
+  .header { grid-template-columns: 1fr auto; }
+  .navigation { grid-column: 1 / -1; grid-row: 2; justify-content: flex-start; }
+}
+
+/* A cloth-bound cover opens into photographic, facing-page spreads. */
+.hero {
+  background: #4c1831;
+}
+.heroGrid {
+  inset: 1.25rem;
+  border-color: rgba(255, 225, 232, 0.4);
+}
+.heroGeometry {
+  top: 48%;
+  right: 4%;
+  width: min(53vw, 75svh, 48rem);
+}
+.orbit {
+  inset: 4%;
+}
+.orbit img { object-position: center bottom; }
+.heroTitle { position: relative; max-width: 10ch; font-size: clamp(4rem, 7vw, 7rem); }
+.heroLine { flex-wrap: wrap; white-space: normal; }
+.heroFooter { max-width: 44rem; }
+.story { background: #f4dfdf; }
+.storyCopy h2 { color: #6e2249; }
+.bookPage { position: relative; }
+.bookPageCopy { position: relative; }
+.bookPageCopy::after {
+  content: "";
+  position: absolute;
+  inset: 1.5rem;
+  border: 1px solid currentColor;
+  opacity: 0.25;
+  pointer-events: none;
+}
+.bookFolio { border-bottom: 1px solid currentColor; padding-bottom: 0.7rem; }
+.bookPage h2 { font-size: clamp(3rem, 6vw, 6rem); }
+.bookPhoto img { object-position: center; }
+.includesCover {
+  background: #812b58;
+  background-image: linear-gradient(90deg, rgba(40, 9, 23, 0.28), transparent 12%);
+}
+.includes .includePage { background-image: linear-gradient(90deg, rgba(68, 25, 43, 0.1), transparent 8%); }
+.plans { background: #211019; }
+.plan { border-radius: 0; }
+.roo { --line: rgba(50, 21, 34, 0.25); }
+.education .workshop { border-color: rgba(50, 21, 34, 0.25); }
+.contact { background: #321522; }
+.contactForm { background: #24101b; box-shadow: none; }
+
+@media (max-width: 1023px) {
+  .heroGeometry { right: -5%; width: min(76vw, 36rem); }
+  .heroFooter { max-width: 36rem; }
+  .navigation a:not(.educationLink) { display: inline; }
+  .bookPage { grid-template-columns: 1fr; }
+  .bookPhoto { min-height: 0; aspect-ratio: 4 / 3; }
+  .includes.bookStage { padding: 0; }
+}
+@media (max-width: 640px) {
+  .hero { min-height: min(44rem, 85svh); padding-top: 4rem; }
+  .heroGeometry { top: 35%; right: 0; width: min(85vw, 70svh); opacity: 0.6; }
+  .heroTitle { font-size: clamp(2.75rem, 12vw, 4.7rem); }
+  .heroFooter { position: relative; }
+  .storyCopy { width: 100%; }
+  .bookPageCopy { min-height: 22rem; padding: 3.5rem 2.5rem; }
+  .includes.bookStage { padding: 0; }
+  .includesCover, .includes .includePage { padding: 4rem 2rem; }
+}
+
+@media (min-width: 1024px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
+  .includes[data-includes-active] .includeList { display: grid; }
+  .includes[data-includes-active] .includesCover,
+  .includes[data-includes-active] .includePage {
+    grid-area: 1 / 1;
+    min-height: 100svh;
+  }
+}
+
+/* The original pink ties the dark cover and selected storybook spreads together. */
+.page { --mint: #f58ec5; }
+.hero, .methodIntro, .plans, .forYou, .contact, .footer { background: #100b0e; }
+.heroOverlay { background: #100b0e; }
+.heroGrid { border-color: rgba(245, 142, 197, 0.4); }
+.bookPage:nth-child(2) { background: #100b0e; color: #f4e7ea; }
+.bookPage:nth-child(2) .bookFolio { color: #f58ec5; }
+.includesCover { background: #301624; color: #f58ec5; }
+.roo { background: #f58ec5; }
+.featuredPlan { background: #301624; }
+.contactForm { background: #201219; }
+
+/* The method continues the framed, typeset pages of the story. */
+.methodIntro {
+  border-top-color: #f58ec5;
+}
+.methodIntro::before {
+  content: "";
+  position: absolute;
+  inset: 1.25rem;
+  border: 1px solid rgba(245, 142, 197, 0.35);
+  pointer-events: none;
+}
+.methodIntroCopy h2 {
+  color: #f58ec5;
+}
+.methodIntroCopy > .methodStageTitle {
+  font-family: Georgia, serif;
+  font-weight: 400;
+  line-height: 1.08;
+}
+.methodIntro .methodCommitmentNote {
+  border-top-color: #f58ec5;
+}
+.methodIntro .processList li {
+  border-top-color: rgba(245, 142, 197, 0.55);
+}
+.methodIntro .processList h3 {
+  font-family: Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.035em;
+}
+.methodIntro .processList p {
+  color: var(--ink);
+}
+.primaryAction {
+  border-color: #f58ec5;
+  background: #f58ec5;
+  color: #130c0f;
+}
+.primaryAction:hover, .primaryAction:focus-visible {
+  border-color: #ffc7e3;
+  background: #ffc7e3;
+  color: #130c0f;
+}
+.page :focus-visible { box-shadow: 0 0 0 2px #130c0f; }
+@media (max-width: 1023px) {
+  .header { background: #100b0e; }
+}
+
+/* Each spread is readable as stacked pages until the desktop timeline is active. */
+.includes .includePage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  padding: 0;
+  background: #f58ec5;
+}
+.includeEntry {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: clamp(2.5rem, 6vw, 7rem);
+  background: #f58ec5;
+  color: #100b0e;
+}
+.includeEntry:nth-child(2) { background: #100b0e; color: #f58ec5; }
+.includePage:nth-child(3) .includeEntry { background: #f4e4e0; color: #100b0e; }
+.includePage:nth-child(3) .includeEntry:nth-child(2) { background: #301624; color: #f58ec5; }
+@media (min-width: 1024px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
+  .includes[data-includes-active] .includePage { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .includes[data-includes-active] .includeEntry { min-height: 100svh; }
+}
+.includes .includePage h3 {
+  max-width: none;
+  margin: 1.5rem 0 1rem;
+  font-size: clamp(2.2rem, 3.5vw, 3.75rem);
+}
+@media (max-width: 699px) {
+  .includes .includePage h3 { font-size: clamp(2.2rem, 9vw, 3rem); }
+}
+
+/* Pricing carries the facing-page treatment into the plan comparison. */
+.planGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: rgba(245, 142, 197, 0.4);
+  align-items: stretch;
+}
+.plan,
+.plan.featuredPlan {
+  --ink: #321522;
+  --line: rgba(50, 21, 34, 0.28);
+  --mint: #79234f;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  padding: clamp(2rem, 4vw, 4rem);
+  border: 0;
+  background: #f1dbd9;
+  color: var(--ink);
+  box-shadow: none;
+  grid-template-rows: subgrid;
+  grid-row: span 4;
+  gap: 1.5rem;
+}
+.plan.featuredPlan {
+  background: #f58ec5;
+}
+.supportPlan::before,
+.featuredPlan::before,
+.featuredPlan::after {
+  display: none;
+}
+.plan h3,
+.featuredPlan h3 {
+  font-family: Georgia, serif;
+  font-size: clamp(2.35rem, 4vw, 4rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  overflow-wrap: anywhere;
+}
+.planRole,
+.featuredPlan .planRole,
+.planPriceLine span,
+.bundleEyebrow {
+  color: #61203f;
+}
+.planBadge {
+  border-color: currentColor;
+  border-radius: 0;
+  color: #61203f;
+}
+.planPriceLine,
+.featuredPlan .planPriceLine {
+  width: 100%;
+  margin-top: 0.5rem;
+  border-color: var(--line);
+}
+.plan .price,
+.featuredPlan .price {
+  color: var(--ink);
+  font-family: Georgia, serif;
+  font-size: clamp(1.6rem, 2.7vw, 2.4rem);
+  font-weight: 400;
+}
+.featuredPlan .planSubtitle { color: var(--ink); }
+.plan > .bundlePrice {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-content: start;
+  gap: 0.75rem 1rem;
+  margin-top: 0.5rem;
+  border: 0;
+  background: #f8e9e8;
+  padding: clamp(1.1rem, 2vw, 1.5rem);
+}
+.plan > .bundlePrice .price {
+  margin-top: 0.35rem;
+  font-size: clamp(1.7rem, 2.7vw, 2.4rem);
+  line-height: 1.1;
+}
+.bundlePrice .planBadge {
+  border-color: #321522;
+  background: #321522;
+  color: #fff4f5;
+}
+.bundlePrice .bundleAction { grid-column: 1 / -1; }
+.originalPrice,
+.bundleBody { color: #51233a; }
+.plan li,
+.featuredPlan li { border-color: var(--line); }
+.plan ul { align-content: start; }
+.plan li { padding-left: 1.25rem; }
+.plan li::before {
+  content: "";
+  top: 1.15rem;
+  width: 0.4rem;
+  height: 0.4rem;
+  border: 1px solid currentColor;
+  background: transparent;
+  transform: rotate(45deg);
+}
+.plan li:hover { transform: none; }
+.plan li:hover::before { transform: rotate(45deg); }
+.plan li:hover { color: #79234f; }
+.plan .planAction,
+.plan .planPrimaryAction,
+.plan .bundleAction {
+  border-color: #321522;
+  border-radius: 0;
+  color: #321522;
+}
+.plan .planPrimaryAction,
+.plan .planAction:hover,
+.plan .bundleAction:hover {
+  background: #321522;
+  color: #fff4f5;
+}
+.plan .planPrimaryAction:hover { background: #61203f; color: #fff4f5; }
+.plan > .planAction,
+.plan > .planPrimaryAction {
+  width: 100%;
+  justify-content: space-between;
+  min-height: 3.5rem;
+}
+@media (max-width: 767px) {
+  .planGrid { grid-template-columns: 1fr; }
+  .plan, .plan.featuredPlan { grid-row: auto; grid-template-rows: none; }
+  .plan > .bundlePrice { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Workshop covers and descriptions read as pages in the same editorial story. */
+.education {
+  background: #f1dbd9;
+  color: #321522;
+}
+.educationIntro {
+  align-items: end;
+  border-bottom: 1px solid rgba(50, 21, 34, 0.35);
+  padding-bottom: clamp(2rem, 4vw, 4rem);
+}
+.educationIntro .educationFormat {
+  border-top: 1px solid rgba(50, 21, 34, 0.3);
+  padding-top: 1rem;
+}
+.workshopList {
+  gap: 1px;
+  background: rgba(50, 21, 34, 0.3);
+}
+.education .workshop {
+  border: 0;
+  background: #f8e9e8;
+}
+.education .workshop:nth-child(even) { background: #edc5d1; }
+.workshopCover { background: #100b0e; }
+.workshopSummaryContent {
+  min-height: 15rem;
+  padding: clamp(1.5rem, 2.5vw, 2.5rem);
+}
+.workshop h3,
+.educationTailored h3 {
+  font-family: Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.035em;
+}
+.workshop h3 {
+  color: #321522;
+  font-size: clamp(1.9rem, 2.5vw, 2.7rem);
+  line-height: 1;
+}
+.workshop .workshopAudience { color: #51233a; }
+.workshopAction {
+  border-top: 1px solid rgba(50, 21, 34, 0.3);
+  padding-top: 1rem;
+  color: #61203f;
+}
+.workshopPlus { border-radius: 0; }
+.workshopBody {
+  padding: 0 clamp(1.5rem, 2.5vw, 2.5rem) clamp(1.5rem, 2.5vw, 2.5rem);
+}
+.educationTailored {
+  align-items: start;
+  border-top-color: rgba(50, 21, 34, 0.35);
+}
+.educationTailored h3 {
+  color: #321522;
+  font-size: clamp(2.2rem, 4vw, 4rem);
+}
+.educationTailored .primaryAction {
+  border-radius: 0;
+  background: #321522;
+  border-color: #321522;
+  color: #fff4f5;
+}
+.educationTailored .primaryAction:hover,
+.educationTailored .primaryAction:focus-visible {
+  background: #61203f;
+  border-color: #61203f;
+  color: #fff4f5;
+}
+@media (max-width: 699px) {
+  .workshopSummaryContent { min-height: 12rem; }
+}
+
+/* A single facing-page spread keeps every workshop at a readable scale. */
+.education {
+  --ink: #f4e7ea;
+  --mint: #f58ec5;
+  --line: rgba(245, 142, 197, 0.35);
+  background: #100b0e;
+  color: var(--ink);
+}
+.educationIntro,
+.educationIntro .educationFormat,
+.educationTailored { border-color: var(--line); }
+.workshopCarousel {
+  width: min(100%, 68rem);
+  margin: clamp(3rem, 7vw, 7rem) auto;
+}
+.workshopList {
+  display: flex;
+  gap: 0;
+  margin: 0;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  background: transparent;
+}
+.workshopList::-webkit-scrollbar { display: none; }
+.education .workshop {
+  --ink: #321522;
+  --mint: #79234f;
+  --line: rgba(50, 21, 34, 0.28);
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  color: var(--ink);
+}
+.workshop summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+.workshopCover { aspect-ratio: 16 / 10; }
+.workshopSummaryContent { min-height: 0; justify-content: center; }
+.workshopAction { margin-top: 1.5rem; }
+.workshopBody { padding-top: 1.5rem; }
+.workshopDots {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+.workshopDot {
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.workshopDot::before {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  border: 1px solid #f58ec5;
+  border-radius: 50%;
+}
+.workshopDot[aria-current="true"]::before { background: #f58ec5; }
+.workshopDot:focus-visible { outline: 2px solid #f58ec5; outline-offset: -4px; }
+.educationTailored h3 { color: var(--ink); }
+.educationTailored .primaryAction { background: #f58ec5; border-color: #f58ec5; color: #100b0e; }
+.educationTailored .primaryAction:hover,
+.educationTailored .primaryAction:focus-visible { background: #ffc7e3; border-color: #ffc7e3; color: #100b0e; }
+@media (min-width: 700px) {
+  .education .workshop { position: relative; }
+  .workshop summary { display: block; padding-left: 50%; }
+  .workshopCover { position: absolute; inset: 0 50% 0 0; aspect-ratio: auto; }
+  .workshopRegion { margin-left: 50%; }
+}
+@media (max-width: 699px) {
+  .workshop summary { grid-template-columns: 1fr; }
+  .workshopCover { aspect-ratio: 16 / 9; }
+  .workshopSummaryContent { min-height: 0; }
+}
+@media (max-width: 767px) {
+  .navigation { gap: 0 1rem; flex-wrap: wrap; }
+  .navigation a, .directContact a, .footer a { display: inline-flex; align-items: center; min-height: 2.75rem; }
+  .languageButton { min-width: 2.75rem; min-height: 2.75rem; }
+  .announcement, .footer, .fieldGroup span { font-size: 0.8rem; }
+  .contactForm .selectedInterest { display: block; color: var(--ink); font-size: 0.9rem; font-weight: 400; letter-spacing: normal; text-transform: none; }
+}
+@media (min-width: 768px) {
+  .selectedInterest { display: none; }
 }

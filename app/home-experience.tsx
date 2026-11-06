@@ -18,11 +18,8 @@ type HomeExperienceProps = {
   initialLanguage?: Language;
 };
 
-// const pillarImages = [
-//   "/img/cintura_cerca.webp",
-//   "/img/mano_pelo.webp",
-//   "/img/espalda.webp",
-// ] as const;
+const showMethodSteps = false;
+const chapterImages = ["/img/cintura_cerca.webp", "/img/mano_pelo.webp", "/img/espalda.webp"] as const;
 
 // Same order as the localized workshops; replace the temporary covers when available.
 const workshopImages = [
@@ -43,8 +40,6 @@ function WorkshopCard({
   image: string;
 }) {
   const card = useRef<HTMLDetailsElement>(null);
-  const pinned = useRef(false);
-  const dismissed = useRef(false);
   const expanded = useRef(false);
   const { contextSafe } = useGSAP({ scope: card });
 
@@ -90,32 +85,9 @@ function WorkshopCard({
     <details
       ref={card}
       className={styles.workshop}
-      onPointerEnter={(event) => {
-        if (event.pointerType === "mouse" && !dismissed.current)
-          setExpanded(event.currentTarget, true);
-      }}
-      onPointerLeave={(event) => {
-        if (event.pointerType !== "mouse") return;
-        dismissed.current = false;
-        if (
-          !pinned.current &&
-          !event.currentTarget.contains(document.activeElement)
-        )
-          setExpanded(event.currentTarget, false);
-      }}
-      onBlur={(event) => {
-        if (
-          !pinned.current &&
-          !event.currentTarget.matches(":hover") &&
-          !event.currentTarget.contains(event.relatedTarget)
-        )
-          setExpanded(event.currentTarget, false);
-      }}
       onKeyDown={(event) => {
         if (event.key === "Escape" && event.currentTarget.open) {
           event.preventDefault();
-          pinned.current = false;
-          dismissed.current = true;
           event.currentTarget.querySelector("summary")?.focus();
           setExpanded(event.currentTarget, false);
         }
@@ -124,9 +96,7 @@ function WorkshopCard({
       <summary
         onClick={(event) => {
           event.preventDefault();
-          pinned.current = !pinned.current;
-          dismissed.current = !pinned.current;
-          if (card.current) setExpanded(card.current, pinned.current);
+          if (card.current) setExpanded(card.current, !expanded.current);
         }}
       >
         <div className={styles.workshopCover}>
@@ -134,7 +104,7 @@ function WorkshopCard({
             src={image}
             alt=""
             fill
-            sizes="(min-width: 1100px) 33vw, (min-width: 700px) 50vw, 100vw"
+            sizes="(min-width: 1200px) 34rem, (min-width: 700px) 50vw, 100vw"
           />
         </div>
         <div className={styles.workshopSummaryContent}>
@@ -159,6 +129,63 @@ function WorkshopCard({
         </div>
       </div>
     </details>
+  );
+}
+
+function WorkshopCarousel({ language }: { language: Language }) {
+  const viewport = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+  const { contextSafe } = useGSAP({ scope: viewport });
+  const workshops = lang[language].education.workshops;
+
+  const goTo = (index: number) => contextSafe(() => {
+    const element = viewport.current;
+    if (!element) return;
+    gsap.killTweensOf(element);
+    const target = index * element.clientWidth;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      element.scrollLeft = target;
+      return;
+    }
+    element.style.scrollSnapType = "none";
+    const restoreSnap = () => { element.style.scrollSnapType = ""; };
+    gsap.to(element, {
+      scrollLeft: target,
+      duration: 0.65,
+      ease: "power3.inOut",
+      onComplete: restoreSnap,
+      onInterrupt: restoreSnap,
+    });
+  })();
+
+  return (
+    <div className={styles.workshopCarousel} role="region" aria-roledescription={language === "es" ? "carrusel" : "carousel"} aria-label={language === "es" ? "Talleres" : "Workshops"}>
+      <div
+        ref={viewport}
+        className={styles.workshopList}
+        onScroll={(event) => {
+          const element = event.currentTarget;
+          if (element.clientWidth) setActive(Math.round(element.scrollLeft / element.clientWidth));
+        }}
+        onPointerDown={() => { if (viewport.current) gsap.killTweensOf(viewport.current); }}
+      >
+        {workshops.map((workshop, index) => (
+          <WorkshopCard key={workshop.title} workshop={workshop} language={language} image={workshopImages[index]} />
+        ))}
+      </div>
+      <div className={styles.workshopDots} aria-label={language === "es" ? "Elegir taller" : "Choose a workshop"}>
+        {workshops.map((workshop, index) => (
+          <button
+            key={workshop.title}
+            type="button"
+            className={styles.workshopDot}
+            aria-label={`${language === "es" ? "Ir al taller" : "Go to workshop"} ${index + 1}: ${workshop.title}`}
+            aria-current={active === index ? "true" : undefined}
+            onClick={() => goTo(index)}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -208,21 +235,6 @@ export default function HomeExperience({
             reducedMotion: boolean;
           };
           if (reducedMotion) return;
-
-          const hero = document.getElementById("top");
-          const mainContent = document.getElementById("main-content");
-
-          if (hero && mainContent) {
-            ScrollTrigger.create({
-              trigger: hero,
-              start: "top top",
-              endTrigger: mainContent,
-              end: "top top",
-              pin: true,
-              pinSpacing: false,
-              anticipatePin: 1,
-            });
-          }
 
           gsap
             .timeline({ defaults: { ease: "power3.out" } })
@@ -592,6 +604,65 @@ export default function HomeExperience({
       );
 
       media.add(
+        "(min-width: 1024px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)",
+        () => {
+          const cleanups: (() => void)[] = [];
+          root.current?.querySelectorAll<HTMLElement>("[data-book-stage]").forEach((stage) => {
+            const track = stage.querySelector<HTMLElement>("[data-book-track]");
+            if (!track) return;
+            let animation: gsap.Context | undefined;
+            let frame = 0;
+            const observer = new ResizeObserver(() => schedule());
+            const checkFit = () => {
+              stage.dataset.bookActive = "true";
+              if (track.scrollHeight > window.innerHeight + 1) {
+                observer.disconnect();
+                animation?.revert();
+                animation = undefined;
+                delete stage.dataset.bookActive;
+              } else if (!animation) {
+                const distance = () => Math.max(0, track.scrollWidth - stage.clientWidth);
+                animation = gsap.context(() => {
+                  gsap.to(track, {
+                    x: () => -distance(),
+                    ease: "none",
+                    scrollTrigger: {
+                      trigger: stage,
+                      start: "top top",
+                      end: () => `+=${distance()}`,
+                      pin: true,
+                      scrub: true,
+                      invalidateOnRefresh: true,
+                      anticipatePin: 1,
+                    },
+                  });
+                });
+                observer.observe(track);
+              }
+              ScrollTrigger.refresh();
+            };
+            const schedule = () => {
+              cancelAnimationFrame(frame);
+              frame = requestAnimationFrame(checkFit);
+            };
+            window.addEventListener("resize", schedule);
+            document.fonts.addEventListener("loadingdone", schedule);
+            checkFit();
+            cleanups.push(() => {
+              window.removeEventListener("resize", schedule);
+              document.fonts.removeEventListener("loadingdone", schedule);
+              cancelAnimationFrame(frame);
+              observer.disconnect();
+              animation?.revert();
+              delete stage.dataset.bookActive;
+            });
+          });
+          ScrollTrigger.refresh();
+          return () => cleanups.forEach((cleanup) => cleanup());
+        },
+      );
+
+      media.add(
         "(max-width: 1023px) and (prefers-reduced-motion: no-preference)",
         () => {
           gsap.utils
@@ -619,19 +690,88 @@ export default function HomeExperience({
         },
       );
 
+      media.add(
+        "(min-width: 1024px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)",
+        () => {
+          const stage = root.current?.querySelector<HTMLElement>("[data-includes-stage]");
+          const track = stage?.querySelector<HTMLElement>("[data-includes-track]");
+          if (!stage || !track) return;
+          const panels = Array.from(track.children) as HTMLElement[];
+          let animation: gsap.Context | undefined;
+          let frame = 0;
+
+          const setup = () => {
+            animation?.revert();
+            animation = undefined;
+            stage.dataset.includesActive = "true";
+            if (track.scrollHeight > window.innerHeight + 1) {
+              delete stage.dataset.includesActive;
+            } else {
+              animation = gsap.context(() => {
+                gsap.set(panels[1], { opacity: 0 });
+                gsap.set(panels.slice(2), { xPercent: 100 });
+                const secondEntries = panels.slice(1).map((panel) =>
+                  Array.from(panel.children[1].children),
+                );
+                gsap.set(secondEntries.flat(), { opacity: 0 });
+                const timeline = gsap.timeline({
+                  defaults: { ease: "none" },
+                  scrollTrigger: {
+                    trigger: stage,
+                    start: "top top",
+                    end: () => `+=${window.innerHeight * (panels.length + secondEntries.length)}`,
+                    pin: true,
+                    scrub: true,
+                    anticipatePin: 1,
+                  },
+                });
+                panels.slice(1).forEach((panel, index) => {
+                  timeline.to({}, { duration: 1 });
+                  if (index === 0) {
+                    timeline.to(panel, { opacity: 1, duration: 0.35 });
+                    timeline.set(panels[index], { opacity: 0 });
+                  } else {
+                    timeline.to(panels[index], { xPercent: -100, duration: 0.7 });
+                    timeline.to(panel, { xPercent: 0, duration: 0.7 }, "<");
+                  }
+                  timeline.to({}, { duration: 1 });
+                  timeline.to(secondEntries[index], { opacity: 1, duration: 0.35 });
+                });
+                timeline.to({}, { duration: 1 });
+              });
+            }
+            ScrollTrigger.sort();
+            ScrollTrigger.refresh();
+          };
+          const schedule = () => {
+            cancelAnimationFrame(frame);
+            frame = requestAnimationFrame(setup);
+          };
+          window.addEventListener("resize", schedule);
+          document.fonts.addEventListener("loadingdone", schedule);
+          setup();
+          return () => {
+            window.removeEventListener("resize", schedule);
+            document.fonts.removeEventListener("loadingdone", schedule);
+            cancelAnimationFrame(frame);
+            animation?.revert();
+            delete stage.dataset.includesActive;
+          };
+        },
+      );
+
       media.add("(prefers-reduced-motion: no-preference)", () => {
-        root.current
-          ?.querySelectorAll<HTMLElement>(`.${styles.workshop}`)
-          .forEach((card) => {
-            gsap.from(card, {
-              y: 48,
-              scale: 0.65,
-              opacity: 0.2,
-              duration: 1,
-              ease: "power1.out",
-              scrollTrigger: { trigger: card, start: "top 80%", once: true },
-            });
+        const carousel = root.current?.querySelector<HTMLElement>(`.${styles.workshopCarousel}`);
+        if (carousel) {
+          gsap.from(carousel, {
+            y: 24,
+            scale: 0.97,
+            opacity: 0.7,
+            duration: 0.7,
+            ease: "power3.out",
+            scrollTrigger: { trigger: carousel, start: "top 80%", once: true },
           });
+        }
 
         gsap.utils
           .toArray<HTMLElement>(".for-you-motion li")
@@ -683,8 +823,13 @@ export default function HomeExperience({
   ) {
     event.preventDefault();
     setSelectedInterest(interest);
-    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-    requestAnimationFrame(() => nameInput.current?.focus());
+    nameInput.current?.focus({ preventScroll: true });
+    nameInput.current?.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
+      block: "center",
+    });
   }
 
   function scrollToPageTop(event: MouseEvent<HTMLAnchorElement>) {
@@ -737,6 +882,10 @@ export default function HomeExperience({
         />
         <div className={styles.heroGrid} aria-hidden="true" />
         <div className={styles.heroGeometry} aria-hidden="true">
+          <svg className={styles.heroTriangles} viewBox="0 0 100 100" fill="none">
+            <path d="M50 4 97 92H3L50 4Z" />
+            <path d="M50 19 84.5 84H15.5L50 19Z" />
+          </svg>
           <div className={`${styles.orbit} hero-orbit`}>
             <Image
               src="/img/pose_rosa.webp"
@@ -751,8 +900,8 @@ export default function HomeExperience({
           <h1 id="hero-heading" className={styles.heroTitle}>
             <span className={styles.heroLineWrap}>
               <span className={`${styles.heroLine} hero-line`}>
-                <span className={styles.heroAccent}>DANCER</span>
-                <span>METHOD</span>
+                <span>DANCER</span>
+                <span className={styles.heroAccent}>METHOD</span>
               </span>
             </span>
             <span className={styles.heroLineWrap}>
@@ -766,7 +915,6 @@ export default function HomeExperience({
             </span>
           </h1>
           <div className={`${styles.heroFooter} hero-detail`}>
-            <p>{text.intro}</p>
             <div className={styles.heroActions}>
               <a className={styles.primaryAction} href="#method">
                 {text.primary}
@@ -819,8 +967,25 @@ export default function HomeExperience({
         </div>
       </section>
 
+      {showMethodSteps && <section id="method" className={styles.bookStage} data-book-stage aria-label={text.methodStageLabel}>
+        <div className={styles.bookTrack} data-book-track>
+          {text.methodSteps.map((chapter, index) => (
+            <article className={styles.bookPage} key={chapter.title}>
+              <div className={styles.bookPageCopy}>
+                <span className={styles.bookFolio}>{chapter.number}</span>
+                <h2>{chapter.title}</h2>
+                <p>{chapter.detail}</p>
+              </div>
+              <div className={styles.bookPhoto} aria-hidden="true">
+                <Image src={chapterImages[index]} alt="" fill sizes="(max-width: 1023px) 100vw, 50vw" />
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>}
+
       <section
-        id="method"
+        id={showMethodSteps ? undefined : "method"}
         className={`${styles.methodIntro} method-motion`}
         aria-labelledby="method-heading"
       >
@@ -906,21 +1071,24 @@ export default function HomeExperience({
       </section> */}
 
       <section
-        className={`${styles.includes} includes-motion`}
+        className={`${styles.includes} ${styles.bookStage}`}
+        data-includes-stage
         aria-labelledby="includes-heading"
       >
-        <h2 id="includes-heading" className="reveal">
-          {text.includesTitle}
-        </h2>
-        <div className={styles.includeList}>
-          {text.includes.map(([title, body]) => (
-            <article
-              className={`${styles.includeItem} includeItem`}
-              key={title}
-            >
-              <h3>{title}</h3>
-              <p>{body}</p>
-            </article>
+        <div className={`${styles.includeList} ${styles.bookTrack}`} data-includes-track>
+          <div className={styles.includesCover}>
+            <h2 id="includes-heading">{text.includesTitle}</h2>
+          </div>
+          {[0, 2].map((start) => (
+            <div className={styles.includePage} key={start}>
+              {text.includes.slice(start, start + 2).map(([title, body], index) => (
+                <article className={styles.includeEntry} key={title}>
+                  <span className={styles.bookFolio} aria-hidden="true">0{start + index + 1}</span>
+                  <h3>{title}</h3>
+                  <p>{body}</p>
+                </article>
+              ))}
+            </div>
           ))}
         </div>
       </section>
@@ -963,33 +1131,6 @@ export default function HomeExperience({
                   </div>
                   <p className={styles.planSubtitle}>{plan.subtitle}</p>
                   <p className={styles.planBody}>{plan.body}</p>
-                  {hasBundle ? (
-                    <div className={styles.bundlePrice}>
-                      <div>
-                        <p className={styles.bundleEyebrow}>
-                          {plan.bundle.eyebrow}
-                        </p>
-                        <p className={styles.price}>{plan.bundle.price}</p>
-                        <p className={`${styles.originalPrice} original-price`}>
-                          {plan.bundle.originalPrice}
-                        </p>
-                      </div>
-                      <div className={styles.bundleActions}>
-                        <span className={`${styles.planBadge} plan-badge`}>
-                          {plan.bundle.discountLabel}
-                        </span>
-                        <a
-                          className={styles.bundleAction}
-                          href="#contact"
-                          onClick={(event) => choosePlan(event, "pro")}
-                        >
-                          {plan.bundle.cta}
-                          <span aria-hidden="true">↘</span>
-                        </a>
-                      </div>
-                      <p className={styles.bundleBody}>{plan.bundle.body}</p>
-                    </div>
-                  ) : null}
                 </div>
                 <ul>
                   {plan.items.map((item) => (
@@ -1006,6 +1147,29 @@ export default function HomeExperience({
                   {plan.cta}
                   <span aria-hidden="true">↘</span>
                 </a>
+                {hasBundle ? (
+                  <div className={styles.bundlePrice}>
+                    <div>
+                      <p className={styles.bundleEyebrow}>{plan.bundle.eyebrow}</p>
+                      <p className={styles.price}>{plan.bundle.price}</p>
+                      <p className={`${styles.originalPrice} original-price`}>
+                        {plan.bundle.originalPrice}
+                      </p>
+                    </div>
+                    <span className={`${styles.planBadge} plan-badge`}>
+                      {plan.bundle.discountLabel}
+                    </span>
+                    <p className={styles.bundleBody}>{plan.bundle.body}</p>
+                    <a
+                      className={styles.bundleAction}
+                      href="#contact"
+                      onClick={(event) => choosePlan(event, "pro")}
+                    >
+                      {plan.bundle.cta}
+                      <span aria-hidden="true">↘</span>
+                    </a>
+                  </div>
+                ) : null}
               </article>
             );
           })}
@@ -1075,16 +1239,7 @@ export default function HomeExperience({
             <p className={styles.educationFormat}>{text.education.format}</p>
           </div>
         </div>
-        <div className={styles.workshopList}>
-          {text.education.workshops.map((workshop, index) => (
-            <WorkshopCard
-              key={workshop.title}
-              workshop={workshop}
-              language={language}
-              image={workshopImages[index]}
-            />
-          ))}
-        </div>
+        <WorkshopCarousel language={language} />
         <div className={styles.educationTailored}>
           <h3>{text.education.tailoredTitle}</h3>
           <div>
@@ -1151,6 +1306,7 @@ export default function HomeExperience({
               <option value="pro">{text.interests.pro}</option>
               <option value="undecided">{text.interests.undecided}</option>
             </select>
+            <span className={styles.selectedInterest} aria-hidden="true">{text.interests[selectedInterest]}</span>
             <small id="interest-hint">{text.interestHint}</small>
           </label>
           <button className={styles.primaryAction} type="submit">
