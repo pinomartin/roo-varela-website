@@ -55,6 +55,7 @@ try {
   await move(0);
   await new Promise((resolve) => setTimeout(resolve, 600));
   assert.equal(await evaluate("document.querySelector('#education details').open"), true, "First card did not open");
+  assert.equal(await evaluate("getComputedStyle(document.querySelector('#education details summary span span')).opacity"), "0", "Workshop label did not fade out");
   const initialHeight = await evaluate("document.querySelector('#education details summary').getBoundingClientRect().height");
   await move(1);
   await new Promise((resolve) => setTimeout(resolve, 180));
@@ -63,6 +64,7 @@ try {
   await move(2);
   await new Promise((resolve) => setTimeout(resolve, 650));
   assert.deepEqual(await evaluate("[...document.querySelectorAll('#education details')].slice(0,3).map(x => x.open)"), [false, false, true]);
+  assert.equal(await evaluate("getComputedStyle(document.querySelector('#education details summary span span')).opacity"), "1", "Workshop label did not fade back in");
   await move(1);
   await new Promise((resolve) => setTimeout(resolve, 80));
   await move(2);

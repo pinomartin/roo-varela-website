@@ -18,15 +18,29 @@ type HomeExperienceProps = {
   initialLanguage?: Language;
 };
 
-const pillarImages = [
-  "/img/cintura_cerca.png",
-  "/img/mano_pelo.png",
-  "/img/espalda.png",
-] as const;
+// const pillarImages = [
+//   "/img/cintura_cerca.webp",
+//   "/img/mano_pelo.webp",
+//   "/img/espalda.webp",
+// ] as const;
 
-function WorkshopCard({ workshop, language }: {
+// Same order as the localized workshops; replace the temporary covers when available.
+const workshopImages = [
+  "/img/workshops/dancer_conditioning.webp",
+  "/img/workshops/fuel_your_dance.webp",
+  "/img/workshops/the_person_behind.webp",
+  "/img/workshops/dancer_toolkit.webp",
+  "/img/workshops/artist_journey.webp",
+];
+
+function WorkshopCard({
+  workshop,
+  language,
+  image,
+}: {
   workshop: (typeof lang)[Language]["education"]["workshops"][number];
   language: Language;
+  image: string;
 }) {
   const card = useRef<HTMLDetailsElement>(null);
   const pinned = useRef(false);
@@ -34,53 +48,68 @@ function WorkshopCard({ workshop, language }: {
   const expanded = useRef(false);
   const { contextSafe } = useGSAP({ scope: card });
 
-  const setExpanded = (element: HTMLDetailsElement, open: boolean) => contextSafe(() => {
-    if (expanded.current === open) return;
-    expanded.current = open;
-    const region = element.querySelector<HTMLElement>(`.${styles.workshopRegion}`);
-    const summary = element.querySelector("summary");
-    if (!region || !summary) return;
+  const setExpanded = (element: HTMLDetailsElement, open: boolean) =>
+    contextSafe(() => {
+      if (expanded.current === open) return;
+      expanded.current = open;
+      const region = element.querySelector<HTMLElement>(
+        `.${styles.workshopRegion}`,
+      );
+      const summary = element.querySelector("summary");
+      if (!region || !summary) return;
 
-    gsap.killTweensOf(region);
-    summary.setAttribute("aria-expanded", String(open));
-    region.inert = !open;
-    const wasOpen = element.open;
+      gsap.killTweensOf(region);
+      summary.setAttribute("aria-expanded", String(open));
+      region.inert = !open;
+      const wasOpen = element.open;
 
-    const finish = () => {
-      if (!open) element.open = false;
-      gsap.set(region, { clearProps: "height,opacity,overflow" });
-      summary.removeAttribute("aria-expanded");
-    };
+      const finish = () => {
+        if (!open) element.open = false;
+        gsap.set(region, { clearProps: "height,opacity,overflow" });
+        summary.removeAttribute("aria-expanded");
+      };
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      if (open) element.open = true;
-      finish();
-      return;
-    }
-    element.open = true;
-    if (!wasOpen) gsap.set(region, { height: 0, opacity: 0 });
-    gsap.set(region, { overflow: "hidden" });
-    gsap.to(region, {
-      height: open ? "auto" : 0,
-      opacity: open ? 1 : 0,
-      duration: open ? 0.45 : 0.3,
-      ease: open ? "power3.out" : "power2.inOut",
-      onComplete: finish,
-    });
-  })();
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        if (open) element.open = true;
+        finish();
+        return;
+      }
+      element.open = true;
+      if (!wasOpen) gsap.set(region, { height: 0, opacity: 0 });
+      gsap.set(region, { overflow: "hidden" });
+      gsap.to(region, {
+        height: open ? "auto" : 0,
+        opacity: open ? 1 : 0,
+        duration: open ? 0.45 : 0.3,
+        ease: open ? "power3.out" : "power2.inOut",
+        onComplete: finish,
+      });
+    })();
 
   return (
-    <details ref={card} className={styles.workshop}
+    <details
+      ref={card}
+      className={styles.workshop}
       onPointerEnter={(event) => {
-        if (event.pointerType === "mouse" && !dismissed.current) setExpanded(event.currentTarget, true);
+        if (event.pointerType === "mouse" && !dismissed.current)
+          setExpanded(event.currentTarget, true);
       }}
       onPointerLeave={(event) => {
         if (event.pointerType !== "mouse") return;
         dismissed.current = false;
-        if (!pinned.current && !event.currentTarget.contains(document.activeElement)) setExpanded(event.currentTarget, false);
+        if (
+          !pinned.current &&
+          !event.currentTarget.contains(document.activeElement)
+        )
+          setExpanded(event.currentTarget, false);
       }}
       onBlur={(event) => {
-        if (!pinned.current && !event.currentTarget.matches(":hover") && !event.currentTarget.contains(event.relatedTarget)) setExpanded(event.currentTarget, false);
+        if (
+          !pinned.current &&
+          !event.currentTarget.matches(":hover") &&
+          !event.currentTarget.contains(event.relatedTarget)
+        )
+          setExpanded(event.currentTarget, false);
       }}
       onKeyDown={(event) => {
         if (event.key === "Escape" && event.currentTarget.open) {
@@ -90,23 +119,43 @@ function WorkshopCard({ workshop, language }: {
           event.currentTarget.querySelector("summary")?.focus();
           setExpanded(event.currentTarget, false);
         }
-      }}>
-      <summary onClick={(event) => {
-        event.preventDefault();
-        pinned.current = !pinned.current;
-        dismissed.current = !pinned.current;
-        if (card.current) setExpanded(card.current, pinned.current);
-      }}>
-        <div className={styles.workshopPreview}>
-          <h3>{workshop.title}</h3>
-          <p className={styles.workshopAudience}>{workshop.audience}</p>
+      }}
+    >
+      <summary
+        onClick={(event) => {
+          event.preventDefault();
+          pinned.current = !pinned.current;
+          dismissed.current = !pinned.current;
+          if (card.current) setExpanded(card.current, pinned.current);
+        }}
+      >
+        <div className={styles.workshopCover}>
+          <Image
+            src={image}
+            alt=""
+            fill
+            sizes="(min-width: 1100px) 33vw, (min-width: 700px) 50vw, 100vw"
+          />
         </div>
-        <span className={styles.workshopAction}>{language === "es" ? "Ver taller" : "Explore workshop"}<span aria-hidden="true" className={styles.workshopPlus} /></span>
+        <div className={styles.workshopSummaryContent}>
+          <div className={styles.workshopPreview}>
+            <h3>{workshop.title}</h3>
+            <p className={styles.workshopAudience}>{workshop.audience}</p>
+          </div>
+          <span className={styles.workshopAction}>
+            <span className={styles.workshopActionLabel}>
+              {language === "es" ? "Ver taller" : "Explore workshop"}
+            </span>
+            <span aria-hidden="true" className={styles.workshopPlus} />
+          </span>
+        </div>
       </summary>
       <div className={styles.workshopRegion}>
         <div className={styles.workshopBody}>
           <p>{workshop.description}</p>
-          {workshop.details && <p className={styles.workshopDetails}>{workshop.details}</p>}
+          {workshop.details && (
+            <p className={styles.workshopDetails}>{workshop.details}</p>
+          )}
         </div>
       </div>
     </details>
@@ -129,21 +178,24 @@ export default function HomeExperience({
     () => {
       const media = gsap.matchMedia();
 
-      media.add("(prefers-reduced-motion: no-preference)", () => {
-        gsap.from(".method-title-word", {
-          y: 24,
-          autoAlpha: 0,
-          stagger: 0.15,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".method-title-reveal",
-            start: "top 85%",
-            end: "top 25%",
-            scrub: 0.8,
-          },
-        });
-
-      }, root);
+      media.add(
+        "(prefers-reduced-motion: no-preference)",
+        () => {
+          gsap.from(".method-title-word", {
+            y: 24,
+            autoAlpha: 0,
+            stagger: 0.15,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ".method-title-reveal",
+              start: "top 85%",
+              end: "top 25%",
+              scrub: 0.8,
+            },
+          });
+        },
+        root,
+      );
 
       media.add(
         {
@@ -267,111 +319,111 @@ export default function HomeExperience({
               },
             });
 
-            if (desktop) {
-              gsap.utils
-                .toArray<HTMLElement>(".horizontal-stage")
-                .forEach((stage) => {
-                  if (stage.classList.contains("method-stage")) return;
+            // if (desktop) {
+            //   gsap.utils
+            //     .toArray<HTMLElement>(".horizontal-stage")
+            //     .forEach((stage) => {
+            //       if (stage.classList.contains("method-stage")) return;
 
-                  const track =
-                    stage.querySelector<HTMLElement>(".horizontal-track");
-                  const scenes = gsap.utils.toArray<HTMLElement>(
-                    stage.querySelectorAll(".scene"),
-                  );
+            //       const track =
+            //         stage.querySelector<HTMLElement>(".horizontal-track");
+            //       const scenes = gsap.utils.toArray<HTMLElement>(
+            //         stage.querySelectorAll(".scene"),
+            //       );
 
-                  if (!track || scenes.length < 2) return;
+            //       if (!track || scenes.length < 2) return;
 
-                  const horizontalTween = gsap.timeline({
-                    scrollTrigger: {
-                      trigger: stage,
-                      start: "top top",
-                      end: () =>
-                        `+=${window.innerWidth * (scenes.length - 0.55)}`,
-                      pin: true,
-                      scrub: 0.7,
-                      anticipatePin: 1,
-                    },
-                  });
+            //       const horizontalTween = gsap.timeline({
+            //         scrollTrigger: {
+            //           trigger: stage,
+            //           start: "top top",
+            //           end: () =>
+            //             `+=${window.innerWidth * (scenes.length - 0.55)}`,
+            //           pin: true,
+            //           scrub: 0.7,
+            //           anticipatePin: 1,
+            //         },
+            //       });
 
-                  horizontalTween
-                    .to(track, {
-                      xPercent: -((scenes.length - 1) / scenes.length) * 100,
-                      ease: "none",
-                      duration: scenes.length - 1,
-                    })
-                    .to({}, { duration: 0.45 });
+            //       horizontalTween
+            //         .to(track, {
+            //           xPercent: -((scenes.length - 1) / scenes.length) * 100,
+            //           ease: "none",
+            //           duration: scenes.length - 1,
+            //         })
+            //         .to({}, { duration: 0.45 });
 
-                  scenes.forEach((scene, index) => {
-                    gsap
-                      .timeline({
-                        defaults: { duration: 0.8, ease: "power3.out" },
-                        scrollTrigger: index === 0
-                          ? { trigger: stage, start: "top 80%", once: true }
-                          : {
-                              trigger: scene,
-                              containerAnimation: horizontalTween,
-                              start: "left 75%",
-                              once: true,
-                            },
-                      })
-                      .from(scene.querySelector(".scene-index"), {
-                        y: 45,
-                        autoAlpha: 0,
-                      })
-                      .from(scene.querySelector(".scene-copy"), {
-                        y: 48,
-                        autoAlpha: 0,
-                        clipPath: "inset(0 0 100% 0)",
-                      }, "<0.15");
+            //       scenes.forEach((scene, index) => {
+            //         gsap
+            //           .timeline({
+            //             defaults: { duration: 0.8, ease: "power3.out" },
+            //             scrollTrigger: index === 0
+            //               ? { trigger: stage, start: "top 80%", once: true }
+            //               : {
+            //                   trigger: scene,
+            //                   containerAnimation: horizontalTween,
+            //                   start: "left 75%",
+            //                   once: true,
+            //                 },
+            //           })
+            //           .from(scene.querySelector(".scene-index"), {
+            //             y: 45,
+            //             autoAlpha: 0,
+            //           })
+            //           .from(scene.querySelector(".scene-copy"), {
+            //             y: 48,
+            //             autoAlpha: 0,
+            //             clipPath: "inset(0 0 100% 0)",
+            //           }, "<0.15");
 
-                    gsap.from(scene.querySelector(".scene-image-frame"), {
-                      scale: 0.78,
-                      rotation: index % 2 === 0 ? -8 : 8,
-                      autoAlpha: 0,
-                      ease: "power3.out",
-                      scrollTrigger: {
-                        trigger: scene,
-                        containerAnimation: horizontalTween,
-                        start: "left 74%",
-                        end: "left 42%",
-                        scrub: 0.8,
-                      },
-                    });
+            //         gsap.from(scene.querySelector(".scene-image-frame"), {
+            //           scale: 0.78,
+            //           rotation: index % 2 === 0 ? -8 : 8,
+            //           autoAlpha: 0,
+            //           ease: "power3.out",
+            //           scrollTrigger: {
+            //             trigger: scene,
+            //             containerAnimation: horizontalTween,
+            //             start: "left 74%",
+            //             end: "left 42%",
+            //             scrub: 0.8,
+            //           },
+            //         });
 
-                    gsap.to(scene.querySelector(".scene-photo"), {
-                      xPercent: index === 1 ? -5 : 5,
-                      yPercent: index === 2 ? -3 : 2,
-                      scale: 1.02,
-                      ease: "none",
-                      scrollTrigger: {
-                        trigger: scene,
-                        containerAnimation: horizontalTween,
-                        start: "left 80%",
-                        end: "right 24%",
-                        scrub: true,
-                      },
-                    });
-                  });
-                });
-            } else {
-              gsap.utils
-                .toArray<HTMLElement>(".horizontal-stage")
-                .forEach((stage) => {
-                  gsap.from(stage.querySelectorAll(".scene-image-frame"), {
-                    y: 36,
-                    scale: 0.9,
-                    autoAlpha: 0,
-                    duration: 0.8,
-                    ease: "power3.out",
-                    stagger: 0.1,
-                    scrollTrigger: {
-                      trigger: stage,
-                      start: "top 72%",
-                      once: true,
-                    },
-                  });
-                });
-            }
+            //         gsap.to(scene.querySelector(".scene-photo"), {
+            //           xPercent: index === 1 ? -5 : 5,
+            //           yPercent: index === 2 ? -3 : 2,
+            //           scale: 1.02,
+            //           ease: "none",
+            //           scrollTrigger: {
+            //             trigger: scene,
+            //             containerAnimation: horizontalTween,
+            //             start: "left 80%",
+            //             end: "right 24%",
+            //             scrub: true,
+            //           },
+            //         });
+            //       });
+            //     });
+            // } else {
+            //   gsap.utils
+            //     .toArray<HTMLElement>(".horizontal-stage")
+            //     .forEach((stage) => {
+            //       gsap.from(stage.querySelectorAll(".scene-image-frame"), {
+            //         y: 36,
+            //         scale: 0.9,
+            //         autoAlpha: 0,
+            //         duration: 0.8,
+            //         ease: "power3.out",
+            //         stagger: 0.1,
+            //         scrollTrigger: {
+            //           trigger: stage,
+            //           start: "top 72%",
+            //           once: true,
+            //         },
+            //       });
+            //     });
+            // }
 
             gsap
               .timeline({
@@ -468,7 +520,7 @@ export default function HomeExperience({
                   once: true,
                 },
               })
-              .from(".process-motion .processList li", {
+              .from(".process-motion li", {
                 xPercent: 10,
                 autoAlpha: 0,
                 stagger: 0.14,
@@ -539,50 +591,59 @@ export default function HomeExperience({
         },
       );
 
-      media.add("(max-width: 1023px) and (prefers-reduced-motion: no-preference)", () => {
-        gsap.utils.toArray<HTMLElement>(".horizontal-stage .scene").forEach((scene) => {
-          const image = scene.querySelector(".scene-image-frame");
-          const copy = scene.querySelector(".scene-copy");
-          gsap.from(image, {
-            scale: 0.88,
-            rotation: -6,
-            autoAlpha: 0,
-            duration: 0.8,
-            ease: "power3.out",
-            scrollTrigger: { trigger: image, start: "top 85%", once: true },
-          });
-          gsap.from(copy, {
-            y: 32,
-            autoAlpha: 0,
-            clipPath: "inset(0 0 100% 0)",
-            duration: 0.8,
-            ease: "power3.out",
-            scrollTrigger: { trigger: copy, start: "top 90%", once: true },
-          });
-        });
-      });
+      media.add(
+        "(max-width: 1023px) and (prefers-reduced-motion: no-preference)",
+        () => {
+          gsap.utils
+            .toArray<HTMLElement>(".horizontal-stage .scene")
+            .forEach((scene) => {
+              const image = scene.querySelector(".scene-image-frame");
+              const copy = scene.querySelector(".scene-copy");
+              gsap.from(image, {
+                scale: 0.88,
+                rotation: -6,
+                autoAlpha: 0,
+                duration: 0.8,
+                ease: "power3.out",
+                scrollTrigger: { trigger: image, start: "top 85%", once: true },
+              });
+              gsap.from(copy, {
+                y: 32,
+                autoAlpha: 0,
+                clipPath: "inset(0 0 100% 0)",
+                duration: 0.8,
+                ease: "power3.out",
+                scrollTrigger: { trigger: copy, start: "top 90%", once: true },
+              });
+            });
+        },
+      );
 
       media.add("(prefers-reduced-motion: no-preference)", () => {
-        root.current?.querySelectorAll<HTMLElement>(`.${styles.workshop}`).forEach((card) => {
-          gsap.from(card, {
-            y: 48,
-            scale: 0.65,
-            opacity: 0.2,
-            duration: 1,
-            ease: "power1.out",
-            scrollTrigger: { trigger: card, start: "top 80%", once: true },
+        root.current
+          ?.querySelectorAll<HTMLElement>(`.${styles.workshop}`)
+          .forEach((card) => {
+            gsap.from(card, {
+              y: 48,
+              scale: 0.65,
+              opacity: 0.2,
+              duration: 1,
+              ease: "power1.out",
+              scrollTrigger: { trigger: card, start: "top 80%", once: true },
+            });
           });
-        });
 
-        gsap.utils.toArray<HTMLElement>(".for-you-motion li").forEach((item) => {
-          gsap.from(item, {
-            x: -24,
-            autoAlpha: 0,
-            duration: 0.65,
-            ease: "power3.out",
-            scrollTrigger: { trigger: item, start: "top 90%", once: true },
+        gsap.utils
+          .toArray<HTMLElement>(".for-you-motion li")
+          .forEach((item) => {
+            gsap.from(item, {
+              x: -24,
+              autoAlpha: 0,
+              duration: 0.65,
+              ease: "power3.out",
+              scrollTrigger: { trigger: item, start: "top 90%", once: true },
+            });
           });
-        });
 
         gsap.to(".hero-overlay", {
           opacity: 1,
@@ -655,7 +716,9 @@ export default function HomeExperience({
           <a href="#method">{text.nav[0]}</a>
           <a href="#plans">{text.nav[1]}</a>
           <a href="#roo">{text.nav[2]}</a>
-          <a className={styles.educationLink} href="#education">{text.nav[4]}</a>
+          <a className={styles.educationLink} href="#education">
+            {text.nav[4]}
+          </a>
           <a href="#contact">{text.nav[3]}</a>
         </nav>
         <a
@@ -668,12 +731,15 @@ export default function HomeExperience({
       </header>
 
       <section id="top" className={styles.hero} aria-labelledby="hero-heading">
-        <div className={`${styles.heroOverlay} hero-overlay`} aria-hidden="true" />
+        <div
+          className={`${styles.heroOverlay} hero-overlay`}
+          aria-hidden="true"
+        />
         <div className={styles.heroGrid} aria-hidden="true" />
         <div className={styles.heroGeometry} aria-hidden="true">
           <div className={`${styles.orbit} hero-orbit`}>
             <Image
-              src="/img/pose_rosa.png"
+              src="/img/pose_rosa.webp"
               alt=""
               fill
               preload
@@ -734,7 +800,7 @@ export default function HomeExperience({
           >
             <Image
               className="story-photo"
-              src="/img/bailarina_pole.png"
+              src="/img/bailarina_pole.webp"
               alt=""
               fill
               sizes="(max-width: 640px) 54vw, (max-width: 1023px) 50vw, 28vw"
@@ -769,9 +835,16 @@ export default function HomeExperience({
         <div className={`${styles.methodIntroCopy} reveal`}>
           <h2 id="method-heading">{text.methodTitle}</h2>
           <p className="method-intro-body">{text.methodBody}</p>
-          <p className={`${styles.methodStageTitle} method-title-reveal`} aria-label={text.methodCommitmentTitle}>
+          <p
+            className={`${styles.methodStageTitle} method-title-reveal`}
+            aria-label={text.methodCommitmentTitle}
+          >
             {text.methodCommitmentTitle.split(" ").map((word, index) => (
-              <span key={`${word}-${index}`} aria-hidden="true"><span className={styles.methodTitleWord + " method-title-word"}>{word}</span>{" "}</span>
+              <span key={`${word}-${index}`} aria-hidden="true">
+                <span className={styles.methodTitleWord + " method-title-word"}>
+                  {word}
+                </span>{" "}
+              </span>
             ))}
           </p>
         </div>
@@ -787,9 +860,22 @@ export default function HomeExperience({
             ))}
           </span>
         </p>
+        <ol
+          className={`${styles.processList} process-motion`}
+          aria-label={text.practiceLabel}
+        >
+          {text.process.map(([month, title, body, bodyDetail]) => (
+            <li key={month}>
+              <span>{month}</span>
+              <h3>{title}</h3>
+              <p>{body}</p>
+              {bodyDetail && <p>{bodyDetail}</p>}
+            </li>
+          ))}
+        </ol>
       </section>
 
-      <section
+      {/* <section
         className={`${styles.horizontalStage} horizontal-stage`}
         aria-label={text.practiceLabel}
       >
@@ -817,7 +903,7 @@ export default function HomeExperience({
             </article>
           ))}
         </div>
-      </section>
+      </section> */}
 
       <section
         className={`${styles.includes} includes-motion`}
@@ -938,25 +1024,6 @@ export default function HomeExperience({
       </section>
 
       <section
-        className={`${styles.process} process-motion`}
-        aria-labelledby="process-heading"
-      >
-        <div className={`${styles.processHeading} reveal`}>
-          <h2 id="process-heading">{text.practiceLabel}</h2>
-        </div>
-        <ol className={`${styles.processList} processList`}>
-          {text.process.map(([month, title, body, bodyDetail]) => (
-            <li key={month}>
-              <span>{month}</span>
-              <h3>{title}</h3>
-              <p>{body}</p>
-              <p>{bodyDetail}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section
         id="roo"
         className={`${styles.roo} roo-motion`}
         aria-labelledby="roo-heading"
@@ -996,7 +1063,11 @@ export default function HomeExperience({
         </ul>
       </section>
 
-      <section id="education" className={styles.education} aria-labelledby="education-heading">
+      <section
+        id="education"
+        className={styles.education}
+        aria-labelledby="education-heading"
+      >
         <div className={styles.educationIntro}>
           <h2 id="education-heading">{text.education.title}</h2>
           <div>
@@ -1005,16 +1076,27 @@ export default function HomeExperience({
           </div>
         </div>
         <div className={styles.workshopList}>
-          {text.education.workshops.map((workshop) => (
-            <WorkshopCard key={workshop.title} workshop={workshop} language={language} />
+          {text.education.workshops.map((workshop, index) => (
+            <WorkshopCard
+              key={workshop.title}
+              workshop={workshop}
+              language={language}
+              image={workshopImages[index]}
+            />
           ))}
         </div>
         <div className={styles.educationTailored}>
           <h3>{text.education.tailoredTitle}</h3>
           <div>
             <p>{text.education.tailoredBody}</p>
-            <a className={styles.primaryAction} href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text.education.message)}`} target="_blank" rel="noreferrer">
-              {text.education.cta}<span aria-hidden="true">↗</span>
+            <a
+              className={styles.primaryAction}
+              href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text.education.message)}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {text.education.cta}
+              <span aria-hidden="true">↗</span>
             </a>
           </div>
         </div>
@@ -1030,7 +1112,7 @@ export default function HomeExperience({
           <p>{text.contactIntro}</p>
           <div className={`${styles.formFigure}`}>
             <Image
-              src="/img/bailarina_sentada.png"
+              src="/img/bailarina_sentada.webp"
               alt=""
               fill
               sizes="(max-width: 1023px) 86vw, 28rem"

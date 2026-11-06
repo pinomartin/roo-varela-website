@@ -28,7 +28,7 @@ const seo = {
   { title: string; description: string; path: string; ogLocale: string }
 >;
 
-const ogImage = "/img/pose_rosa.png";
+const ogImage = "/img/pensativa.webp";
 
 function absoluteUrl(path = "/") {
   return new URL(path, siteUrl).toString();

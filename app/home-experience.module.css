@@ -676,7 +676,7 @@
 }
 .includeItem h3,
 .plan h3,
-.process h3 {
+.processList h3 {
   margin: 0;
   font-size: clamp(1.25rem, 2vw, 1.8rem);
   letter-spacing: -0.02em;
@@ -1036,26 +1036,23 @@
   color: color-mix(in srgb, var(--ink) 78%, transparent);
   line-height: 1.45;
 }
-.process {
-  display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-  gap: clamp(3rem, 8vw, 8rem);
-}
-.processHeading p {
-  margin-bottom: 0;
-}
 .processList {
+  position: relative;
+  z-index: 1;
   display: grid;
-  margin: 0;
+  gap: 1.5rem;
+  margin: clamp(3rem, 6vw, 6rem) 0 0;
   padding: 0;
   list-style: none;
 }
+@media (min-width: 700px) {
+  .processList {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
 .processList li {
-  display: grid;
-  grid-template-columns: 7rem 1fr;
-  column-gap: 1.5rem;
   border-top: 1px solid var(--line);
-  padding: 1.25rem 0 2rem;
+  padding-top: 1.25rem;
 }
 .processList li span {
   color: var(--mint);
@@ -1064,10 +1061,9 @@
   letter-spacing: 0.08em;
 }
 .processList h3 {
-  grid-column: 2;
+  margin-top: 0.75rem;
 }
 .processList p {
-  grid-column: 2;
   max-width: 34ch;
   margin: 0.75rem 0 0;
   line-height: 1.45;
@@ -1206,17 +1202,27 @@
   background: color-mix(in srgb, var(--ink) 4%, var(--paper));
 }
 .workshop summary {
+  cursor: pointer;
+  list-style: none;
+}
+.workshopCover {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #160f15;
+}
+.workshopCover img {
+  object-fit: contain;
+}
+.workshopSummaryContent {
   display: flex;
   min-height: 12rem;
   flex-direction: column;
   justify-content: space-between;
   gap: 2rem;
   padding: clamp(1.5rem, 2.5vw, 2rem);
-  cursor: pointer;
-  list-style: none;
 }
 @media (min-width: 700px) {
-  .workshop summary {
+  .workshopSummaryContent {
     min-height: 18rem;
   }
 }
@@ -1242,6 +1248,17 @@
   color: var(--ink);
   font-size: 0.85rem;
   font-weight: 750;
+}
+.workshopActionLabel {
+  transition: opacity 0.2s ease;
+}
+.workshop[open] summary:not([aria-expanded="false"]) .workshopActionLabel {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .workshopActionLabel {
+    transition: none;
+  }
 }
 .workshopPlus {
   position: relative;
@@ -1754,16 +1771,6 @@
   .footer {
     flex-direction: column;
     align-items: flex-start;
-  }
-  .processList li {
-    grid-template-columns: 1fr;
-  }
-  .processList h3,
-  .processList p {
-    grid-column: auto;
-  }
-  .processList h3 {
-    margin-top: 0.75rem;
   }
   .plans,
   .includes,
