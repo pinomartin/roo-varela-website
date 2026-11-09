@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type MouseEvent, type SubmitEvent } from "react";
+import { useEffect, useRef, useState, type MouseEvent, type SubmitEvent } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -12,7 +12,7 @@ import { INSTAGRAM_LINK, WHATSAPP_NUMBER } from "./constants";
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 type Language = "es" | "en";
-type PlanInterest = "essential" | "pro" | "undecided";
+type PlanInterest = "essential" | "pro" | "proBundle" | "undecided";
 
 type HomeExperienceProps = {
   initialLanguage?: Language;
@@ -189,6 +189,46 @@ function WorkshopCarousel({ language }: { language: Language }) {
   );
 }
 
+function BackToTop({ label }: { label: string }) {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const update = () => {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      setVisible(scrollable > 0 && window.scrollY > scrollable * 0.3);
+    };
+    const observer = new ResizeObserver(update);
+    observer.observe(document.body);
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
+  return (
+    <button
+      type="button"
+      className={styles.backToTop}
+      data-visible={visible}
+      aria-label={label}
+      aria-hidden={!visible}
+      tabIndex={visible ? 0 : -1}
+      onClick={() => window.scrollTo({
+        top: 0,
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+      })}
+    >
+      <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M12 19V5M5 12l7-7 7 7" />
+      </svg>
+    </button>
+  );
+}
+
 export default function HomeExperience({
   initialLanguage = "es",
 }: HomeExperienceProps) {
@@ -331,112 +371,6 @@ export default function HomeExperience({
               },
             });
 
-            // if (desktop) {
-            //   gsap.utils
-            //     .toArray<HTMLElement>(".horizontal-stage")
-            //     .forEach((stage) => {
-            //       if (stage.classList.contains("method-stage")) return;
-
-            //       const track =
-            //         stage.querySelector<HTMLElement>(".horizontal-track");
-            //       const scenes = gsap.utils.toArray<HTMLElement>(
-            //         stage.querySelectorAll(".scene"),
-            //       );
-
-            //       if (!track || scenes.length < 2) return;
-
-            //       const horizontalTween = gsap.timeline({
-            //         scrollTrigger: {
-            //           trigger: stage,
-            //           start: "top top",
-            //           end: () =>
-            //             `+=${window.innerWidth * (scenes.length - 0.55)}`,
-            //           pin: true,
-            //           scrub: 0.7,
-            //           anticipatePin: 1,
-            //         },
-            //       });
-
-            //       horizontalTween
-            //         .to(track, {
-            //           xPercent: -((scenes.length - 1) / scenes.length) * 100,
-            //           ease: "none",
-            //           duration: scenes.length - 1,
-            //         })
-            //         .to({}, { duration: 0.45 });
-
-            //       scenes.forEach((scene, index) => {
-            //         gsap
-            //           .timeline({
-            //             defaults: { duration: 0.8, ease: "power3.out" },
-            //             scrollTrigger: index === 0
-            //               ? { trigger: stage, start: "top 80%", once: true }
-            //               : {
-            //                   trigger: scene,
-            //                   containerAnimation: horizontalTween,
-            //                   start: "left 75%",
-            //                   once: true,
-            //                 },
-            //           })
-            //           .from(scene.querySelector(".scene-index"), {
-            //             y: 45,
-            //             autoAlpha: 0,
-            //           })
-            //           .from(scene.querySelector(".scene-copy"), {
-            //             y: 48,
-            //             autoAlpha: 0,
-            //             clipPath: "inset(0 0 100% 0)",
-            //           }, "<0.15");
-
-            //         gsap.from(scene.querySelector(".scene-image-frame"), {
-            //           scale: 0.78,
-            //           rotation: index % 2 === 0 ? -8 : 8,
-            //           autoAlpha: 0,
-            //           ease: "power3.out",
-            //           scrollTrigger: {
-            //             trigger: scene,
-            //             containerAnimation: horizontalTween,
-            //             start: "left 74%",
-            //             end: "left 42%",
-            //             scrub: 0.8,
-            //           },
-            //         });
-
-            //         gsap.to(scene.querySelector(".scene-photo"), {
-            //           xPercent: index === 1 ? -5 : 5,
-            //           yPercent: index === 2 ? -3 : 2,
-            //           scale: 1.02,
-            //           ease: "none",
-            //           scrollTrigger: {
-            //             trigger: scene,
-            //             containerAnimation: horizontalTween,
-            //             start: "left 80%",
-            //             end: "right 24%",
-            //             scrub: true,
-            //           },
-            //         });
-            //       });
-            //     });
-            // } else {
-            //   gsap.utils
-            //     .toArray<HTMLElement>(".horizontal-stage")
-            //     .forEach((stage) => {
-            //       gsap.from(stage.querySelectorAll(".scene-image-frame"), {
-            //         y: 36,
-            //         scale: 0.9,
-            //         autoAlpha: 0,
-            //         duration: 0.8,
-            //         ease: "power3.out",
-            //         stagger: 0.1,
-            //         scrollTrigger: {
-            //           trigger: stage,
-            //           start: "top 72%",
-            //           once: true,
-            //         },
-            //       });
-            //     });
-            // }
-
             gsap
               .timeline({
                 defaults: { duration: 0.72, ease: "power3.out" },
@@ -457,40 +391,6 @@ export default function HomeExperience({
                 { letterSpacing: "0.025em", duration: 1.1 },
                 0,
               );
-
-            const includeCards = gsap.utils.toArray<HTMLElement>(
-              ".includes-motion .includeItem",
-            );
-
-            if (desktop) {
-              includeCards.forEach((card, index) => {
-                gsap.from(card, {
-                  y: 72,
-                  rotation: index % 2 === 0 ? -3 : 3,
-                  autoAlpha: 0,
-                  ease: "power3.out",
-                  scrollTrigger: {
-                    trigger: card,
-                    start: "top 88%",
-                    end: "top 50%",
-                    scrub: 0.75,
-                  },
-                });
-
-                if (index < includeCards.length - 1) {
-                  gsap.to(card, {
-                    autoAlpha: 0.72,
-                    ease: "none",
-                    scrollTrigger: {
-                      trigger: includeCards[index + 1],
-                      start: "top 72%",
-                      end: "top 38%",
-                      scrub: true,
-                    },
-                  });
-                }
-              });
-            }
 
             gsap
               .timeline({
@@ -663,34 +563,6 @@ export default function HomeExperience({
       );
 
       media.add(
-        "(max-width: 1023px) and (prefers-reduced-motion: no-preference)",
-        () => {
-          gsap.utils
-            .toArray<HTMLElement>(".horizontal-stage .scene")
-            .forEach((scene) => {
-              const image = scene.querySelector(".scene-image-frame");
-              const copy = scene.querySelector(".scene-copy");
-              gsap.from(image, {
-                scale: 0.88,
-                rotation: -6,
-                autoAlpha: 0,
-                duration: 0.8,
-                ease: "power3.out",
-                scrollTrigger: { trigger: image, start: "top 85%", once: true },
-              });
-              gsap.from(copy, {
-                y: 32,
-                autoAlpha: 0,
-                clipPath: "inset(0 0 100% 0)",
-                duration: 0.8,
-                ease: "power3.out",
-                scrollTrigger: { trigger: copy, start: "top 90%", once: true },
-              });
-            });
-        },
-      );
-
-      media.add(
         "(min-width: 1024px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)",
         () => {
           const stage = root.current?.querySelector<HTMLElement>("[data-includes-stage]");
@@ -708,34 +580,30 @@ export default function HomeExperience({
               delete stage.dataset.includesActive;
             } else {
               animation = gsap.context(() => {
-                gsap.set(panels[1], { opacity: 0 });
-                gsap.set(panels.slice(2), { xPercent: 100 });
-                const secondEntries = panels.slice(1).map((panel) =>
-                  Array.from(panel.children[1].children),
-                );
-                gsap.set(secondEntries.flat(), { opacity: 0 });
+                const entries = Array.from(panels[1].children);
+                gsap.set(panels[1], { xPercent: 100 });
+                gsap.set(entries, { autoAlpha: 0, x: -30, y: -30 });
                 const timeline = gsap.timeline({
                   defaults: { ease: "none" },
                   scrollTrigger: {
                     trigger: stage,
                     start: "top top",
-                    end: () => `+=${window.innerHeight * (panels.length + secondEntries.length)}`,
+                    end: () => `+=${window.innerHeight * 4}`,
                     pin: true,
                     scrub: true,
                     anticipatePin: 1,
                   },
                 });
-                panels.slice(1).forEach((panel, index) => {
-                  timeline.to({}, { duration: 1 });
-                  if (index === 0) {
-                    timeline.to(panel, { opacity: 1, duration: 0.35 });
-                    timeline.set(panels[index], { opacity: 0 });
-                  } else {
-                    timeline.to(panels[index], { xPercent: -100, duration: 0.7 });
-                    timeline.to(panel, { xPercent: 0, duration: 0.7 }, "<");
-                  }
-                  timeline.to({}, { duration: 1 });
-                  timeline.to(secondEntries[index], { opacity: 1, duration: 0.35 });
+                timeline.to({}, { duration: 0.5 });
+                timeline.to(panels[0], { xPercent: -100, duration: 1 });
+                timeline.to(panels[1], { xPercent: 0, duration: 1 }, "<");
+                timeline.to(entries, {
+                  autoAlpha: 1,
+                  x: 0,
+                  y: 0,
+                  duration: 0.6,
+                  stagger: 0.6,
+                  ease: "power2.out",
                 });
                 timeline.to({}, { duration: 1 });
               });
@@ -803,6 +671,11 @@ export default function HomeExperience({
     { scope: root, dependencies: [language], revertOnUpdate: true },
   );
 
+  function clearContactStatus() {
+    setWhatsAppUrl("");
+    setFormStatus("");
+  }
+
   function submitContact(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -812,9 +685,9 @@ export default function HomeExperience({
       text.interests[String(formData.get("interest")) as PlanInterest];
     const message = text.message(name, goal, interest);
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    const opened = window.open(url, "_blank", "noopener,noreferrer");
+    window.open(url, "_blank", "noopener,noreferrer");
     setWhatsAppUrl(url);
-    setFormStatus(opened ? text.formStatus : text.formFallbackStatus);
+    setFormStatus(text.formStatus);
   }
 
   function choosePlan(
@@ -823,6 +696,7 @@ export default function HomeExperience({
   ) {
     event.preventDefault();
     setSelectedInterest(interest);
+    clearContactStatus();
     nameInput.current?.focus({ preventScroll: true });
     nameInput.current?.scrollIntoView({
       behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -1040,36 +914,6 @@ export default function HomeExperience({
         </ol>
       </section>
 
-      {/* <section
-        className={`${styles.horizontalStage} horizontal-stage`}
-        aria-label={text.practiceLabel}
-      >
-        <div className={`${styles.horizontalTrack} horizontal-track`}>
-          {text.methodSteps.map((pillar, index) => (
-            <article className={`${styles.scene} scene`} key={pillar.title}>
-              <span className={`${styles.sceneIndex} scene-index`}>{pillar.number}</span>
-              <div className={styles.sceneGraphic} aria-hidden="true">
-                <div
-                  className={`${styles.sceneImageFrame} ${styles[`imageFrame${index + 1}`]} scene-image-frame`}
-                >
-                  <Image
-                    className="scene-photo"
-                    src={pillarImages[index]}
-                    alt=""
-                    fill
-                    sizes="(max-width: 1023px) 70vw, 38vw"
-                  />
-                </div>
-              </div>
-              <div className={`${styles.sceneCopy} scene-copy`}>
-                <h2>{pillar.title}</h2>
-                <p className={styles.sceneDetail}>{pillar.detail}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section> */}
-
       <section
         className={`${styles.includes} ${styles.bookStage}`}
         data-includes-stage
@@ -1079,17 +923,15 @@ export default function HomeExperience({
           <div className={styles.includesCover}>
             <h2 id="includes-heading">{text.includesTitle}</h2>
           </div>
-          {[0, 2].map((start) => (
-            <div className={styles.includePage} key={start}>
-              {text.includes.slice(start, start + 2).map(([title, body], index) => (
-                <article className={styles.includeEntry} key={title}>
-                  <span className={styles.bookFolio} aria-hidden="true">0{start + index + 1}</span>
-                  <h3>{title}</h3>
-                  <p>{body}</p>
-                </article>
-              ))}
-            </div>
-          ))}
+          <div className={styles.includePage}>
+            {text.includes.map(([title, body], index) => (
+              <article className={styles.includeEntry} key={title}>
+                <span className={styles.bookFolio} aria-hidden="true">0{index + 1}</span>
+                <h3>{title}</h3>
+                <p>{body}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -1163,7 +1005,7 @@ export default function HomeExperience({
                     <a
                       className={styles.bundleAction}
                       href="#contact"
-                      onClick={(event) => choosePlan(event, "pro")}
+                      onClick={(event) => choosePlan(event, "proBundle")}
                     >
                       {plan.bundle.cta}
                       <span aria-hidden="true">↘</span>
@@ -1277,6 +1119,7 @@ export default function HomeExperience({
         <form
           className={`${styles.contactForm} contactForm reveal`}
           onSubmit={submitContact}
+          onChange={clearContactStatus}
         >
           <label className={styles.fieldGroup}>
             <span>1 · {text.name}</span>
@@ -1304,6 +1147,7 @@ export default function HomeExperience({
             >
               <option value="essential">{text.interests.essential}</option>
               <option value="pro">{text.interests.pro}</option>
+              <option value="proBundle">{text.interests.proBundle}</option>
               <option value="undecided">{text.interests.undecided}</option>
             </select>
             <span className={styles.selectedInterest} aria-hidden="true">{text.interests[selectedInterest]}</span>
@@ -1353,6 +1197,7 @@ export default function HomeExperience({
           {text.backToTop} ↑
         </a>
       </footer>
+      <BackToTop label={text.backToTop} />
     </main>
   );
 }
