@@ -12,14 +12,7 @@ const lang = {
     secondary: "Ver los planes",
     storyTitle: "BAILAR TAMBIÉN ES CUIDAR TU CUERPO",
     story: [
-      "La danza exige mucho: clases, ensayos, castings y funciones mantienen tu cuerpo siempre activo.",
-
       "Para rendir, no alcanza con bailar muchas horas: también necesitas fuerza, recuperación y energía.",
-
-      "Cuidar tu cuerpo es cuidar tu herramienta de trabajo.",
-
-      "Por eso creé Dancer Method: un entrenamiento para bailarines, performers y artistas que entiende las exigencias reales de su profesión.",
-
       "No se trata de entrenar más, sino mejor, para seguir haciendo lo que amas durante mucho tiempo.",
     ],
     methodTitle: "El Método",
@@ -177,12 +170,13 @@ const lang = {
     interests: {
       essential: "Essential — estructura con autonomía",
       pro: "Pro — seguimiento personalizado",
+      proBundle: "Pro — promoción de 3 meses",
       undecided: "Aún no lo sé — quiero orientación",
     },
     submit: "Enviar mi mensaje para Roo",
     formHint:
       "Se abrirá WhatsApp con tu mensaje listo. Tú decides si lo envías.",
-    formStatus: "WhatsApp se abrió con tu mensaje listo para revisar.",
+    formStatus: "Si WhatsApp no se abrió, usa el enlace para continuar.",
     formFallbackStatus:
       "No pude abrir WhatsApp automáticamente. Usa este enlace para continuar.",
     formFallbackAction: "Abrir WhatsApp manualmente",
@@ -210,14 +204,7 @@ const lang = {
     secondary: "View plans",
     storyTitle: "Dancing is also taking care of your body.",
     story: [
-      "Dance demands a lot: classes, rehearsals, auditions, and shows keep your body constantly moving.",
-
       "To perform well, dancing for hours is not enough: you also need strength, recovery, and energy.",
-
-      "Caring for your body means caring for your working tool.",
-
-      "That is why I created Dancer Method: training for dancers, performers, and artists that understands the real demands of their profession.",
-
       "It’s not about training more, but smarter, so you can keep doing what you love for the long haul.",
     ],
     methodTitle: "The Method",
@@ -376,12 +363,13 @@ const lang = {
     interests: {
       essential: "Essential — structure with autonomy",
       pro: "Pro — personalized follow-up",
+      proBundle: "Pro — 3-month promotion",
       undecided: "I am not sure yet — I want guidance",
     },
     submit: "Send my message to Roo",
     formHint:
       "WhatsApp will open with your message ready. You decide if you send it.",
-    formStatus: "WhatsApp opened with your message ready to review.",
+    formStatus: "If WhatsApp didn't open, use the link to continue.",
     formFallbackStatus:
       "I could not open WhatsApp automatically. Use this link to continue.",
     formFallbackAction: "Open WhatsApp manually",
