@@ -1393,7 +1393,8 @@
   gap: 1.25rem;
   padding: 0 clamp(1.5rem, 2.5vw, 2rem) clamp(1.5rem, 2.5vw, 2rem);
 }
-.workshop h3 {
+.workshop h3,
+.workshop h4 {
   margin: 0;
   color: var(--mint);
   font-size: clamp(1.5rem, 2vw, 2rem);
@@ -2315,6 +2316,9 @@
 .education .workshop:nth-child(even) {
   background: #edc5d1;
 }
+.education .workshop.workshopYouth {
+  background: #f4d6de;
+}
 .workshopCover {
   background: #100b0e;
 }
@@ -2323,12 +2327,15 @@
   padding: clamp(1.5rem, 2.5vw, 2.5rem);
 }
 .workshop h3,
-.educationTailored h3 {
+.workshop h4,
+.educationTailored h3,
+.youthIntro h3 {
   font-family: Georgia, serif;
   font-weight: 400;
   letter-spacing: -0.035em;
 }
-.workshop h3 {
+.workshop h3,
+.workshop h4 {
   color: #321522;
   font-size: clamp(1.9rem, 2.5vw, 2.7rem);
   line-height: 1;
@@ -2389,6 +2396,38 @@
 .workshopCarousel {
   width: min(100%, 68rem);
   margin: clamp(3rem, 7vw, 7rem) auto;
+}
+.educationYouth {
+  margin-top: clamp(3rem, 7vw, 7rem);
+  margin-inline: calc(-1 * clamp(1.25rem, 4vw, 4rem));
+  padding: clamp(1.5rem, 4vw, 4rem) clamp(1.25rem, 4vw, 4rem);
+  background: #f58ec5;
+  color: #321522;
+}
+.educationYouth .workshopCarousel {
+  margin: clamp(1.5rem, 3vw, 3rem) auto 0;
+}
+.youthIntro {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: end;
+  gap: clamp(1.5rem, 5vw, 5rem);
+}
+.youthIntro h3 {
+  margin: 0;
+  font-size: clamp(2.2rem, 4vw, 4rem);
+  line-height: 1.05;
+  text-wrap: balance;
+}
+.youthIntro p {
+  max-width: 42ch;
+  margin: 0;
+  line-height: 1.6;
+}
+@media (max-width: 699px) {
+  .youthIntro {
+    grid-template-columns: 1fr;
+  }
 }
 .workshopList {
   display: flex;
@@ -2457,6 +2496,15 @@
 .workshopDot:focus-visible {
   outline: 2px solid #f58ec5;
   outline-offset: -4px;
+}
+.educationYouth .workshopDot::before {
+  border-color: #321522;
+}
+.educationYouth .workshopDot[aria-current="true"]::before {
+  background: #321522;
+}
+.educationYouth .workshopDot:focus-visible {
+  outline-color: #321522;
 }
 .educationTailored h3 {
   color: var(--ink);

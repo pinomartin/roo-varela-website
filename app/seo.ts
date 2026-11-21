@@ -148,7 +148,7 @@ function serviceJsonLd(locale: Locale) {
         hasOfferCatalog: {
           "@type": "OfferCatalog",
           name: lang[locale].education.title,
-          itemListElement: lang[locale].education.workshops.map((workshop) => ({
+          itemListElement: [...lang[locale].education.workshops, ...lang[locale].education.youthWorkshops].map((workshop) => ({
             "@type": "Offer",
             itemOffered: {
               "@type": "Service",

@@ -34,10 +34,12 @@ function WorkshopCard({
   workshop,
   language,
   image,
+  youth = false,
 }: {
-  workshop: (typeof lang)[Language]["education"]["workshops"][number];
+  workshop: (typeof lang)[Language]["education"]["workshops" | "youthWorkshops"][number];
   language: Language;
   image: string;
+  youth?: boolean;
 }) {
   const card = useRef<HTMLDetailsElement>(null);
   const expanded = useRef(false);
@@ -84,7 +86,7 @@ function WorkshopCard({
   return (
     <details
       ref={card}
-      className={styles.workshop}
+      className={`${styles.workshop} ${youth ? styles.workshopYouth : ""}`}
       onKeyDown={(event) => {
         if (event.key === "Escape" && event.currentTarget.open) {
           event.preventDefault();
@@ -109,7 +111,7 @@ function WorkshopCard({
         </div>
         <div className={styles.workshopSummaryContent}>
           <div className={styles.workshopPreview}>
-            <h3>{workshop.title}</h3>
+            {youth ? <h4>{workshop.title}</h4> : <h3>{workshop.title}</h3>}
             <p className={styles.workshopAudience}>{workshop.audience}</p>
           </div>
           <span className={styles.workshopAction}>
@@ -132,11 +134,12 @@ function WorkshopCard({
   );
 }
 
-function WorkshopCarousel({ language }: { language: Language }) {
+function WorkshopCarousel({ language, youth = false }: { language: Language; youth?: boolean }) {
   const viewport = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const { contextSafe } = useGSAP({ scope: viewport });
-  const workshops = lang[language].education.workshops;
+  const education = lang[language].education;
+  const workshops = youth ? education.youthWorkshops : education.workshops;
 
   const goTo = (index: number) => contextSafe(() => {
     const element = viewport.current;
@@ -159,7 +162,7 @@ function WorkshopCarousel({ language }: { language: Language }) {
   })();
 
   return (
-    <div className={styles.workshopCarousel} role="region" aria-roledescription={language === "es" ? "carrusel" : "carousel"} aria-label={language === "es" ? "Talleres" : "Workshops"}>
+    <div className={styles.workshopCarousel} role="region" aria-roledescription={language === "es" ? "carrusel" : "carousel"} aria-label={youth ? education.youthTitle : language === "es" ? "Talleres" : "Workshops"}>
       <div
         ref={viewport}
         className={styles.workshopList}
@@ -170,7 +173,7 @@ function WorkshopCarousel({ language }: { language: Language }) {
         onPointerDown={() => { if (viewport.current) gsap.killTweensOf(viewport.current); }}
       >
         {workshops.map((workshop, index) => (
-          <WorkshopCard key={workshop.title} workshop={workshop} language={language} image={workshopImages[index]} />
+          <WorkshopCard key={workshop.title} workshop={workshop} language={language} image={youth ? "/img/workshops/artist_journey.webp" : workshopImages[index]} youth={youth} />
         ))}
       </div>
       <div className={styles.workshopDots} aria-label={language === "es" ? "Elegir taller" : "Choose a workshop"}>
@@ -641,6 +644,27 @@ export default function HomeExperience({
           });
         }
 
+        const youth = root.current?.querySelector<HTMLElement>(`.${styles.educationYouth}`);
+        const youthIntro = youth?.querySelector<HTMLElement>(`.${styles.youthIntro}`);
+        const youthCarousel = youth?.querySelector<HTMLElement>(`.${styles.workshopCarousel}`);
+        if (youthIntro && youthCarousel) {
+          gsap.timeline({
+            defaults: { duration: 0.7, ease: "power3.out" },
+            scrollTrigger: { trigger: youthIntro, start: "top 85%", once: true },
+          })
+            .from(youthIntro.querySelector("h3"), { x: -24, opacity: 0.75 })
+            .from(youthIntro.querySelector("p"), { y: 16, opacity: 0.75 }, "<0.12");
+
+          gsap.from(youthCarousel, {
+            y: 24,
+            scale: 0.97,
+            opacity: 0.7,
+            duration: 0.7,
+            ease: "power3.out",
+            scrollTrigger: { trigger: youthCarousel, start: "top 80%", once: true },
+          });
+        }
+
         gsap.utils
           .toArray<HTMLElement>(".for-you-motion li")
           .forEach((item) => {
@@ -1097,6 +1121,13 @@ export default function HomeExperience({
             </a>
           </div>
         </div>
+        <section className={styles.educationYouth} aria-labelledby="education-youth-heading">
+          <div className={styles.youthIntro}>
+            <h3 id="education-youth-heading">{text.education.youthTitle}</h3>
+            <p>{text.education.youthIntro}</p>
+          </div>
+          <WorkshopCarousel language={language} youth />
+        </section>
       </section>
 
       <section
